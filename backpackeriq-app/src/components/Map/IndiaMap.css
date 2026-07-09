@@ -1,0 +1,156 @@
+/* ─── Map container ──────────────────────────────────────── */
+.india-map {
+  width: 100%;
+  height: 100%;
+}
+
+/* ─── Custom accent pins ─────────────────────────────────── */
+.biq-pin {
+  width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.biq-pin-dot {
+  width: 9px;
+  height: 9px;
+  background: var(--accent);
+  border-radius: 50%;
+  border: 2px solid var(--paper);
+  outline: 1px solid var(--accent);
+  transition: transform 0.18s ease, width 0.18s ease, height 0.18s ease;
+}
+
+.biq-pin:hover .biq-pin-dot,
+.biq-pin:focus .biq-pin-dot {
+  transform: scale(1.6);
+  cursor: pointer;
+}
+
+/* Popular destinations — slightly larger dot */
+.biq-pin--popular .biq-pin-dot {
+  width: 11px;
+  height: 11px;
+}
+
+/* Package-only — outlined dot (permits needed) */
+.biq-pin--pkg .biq-pin-dot {
+  background: transparent;
+  border: 2px solid var(--accent);
+  outline: none;
+}
+
+/* ─── Popup — override Leaflet defaults to match Blaze ────── */
+.biq-popup .leaflet-popup-content-wrapper {
+  border: var(--border) !important;
+  border-radius: var(--radius-md) !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  overflow: hidden;
+}
+
+.biq-popup .leaflet-popup-tip {
+  background: var(--ink) !important;
+  box-shadow: none !important;
+}
+
+.biq-popup .leaflet-popup-content {
+  margin: 0 !important;
+  font-family: var(--font-body) !important;
+  width: auto !important;
+}
+
+.biq-popup .leaflet-popup-close-button {
+  font-size: 16px !important;
+  color: #aaa !important;
+  top: 6px !important;
+  right: 8px !important;
+  transition: color 0.15s;
+}
+.biq-popup .leaflet-popup-close-button:hover { color: var(--ink) !important; }
+
+/* Popup inner content */
+.biq-popup-inner {
+  padding: 1rem 1.125rem;
+}
+
+.biq-popup-state {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.625rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #888;
+  margin-bottom: 0.25rem;
+}
+
+.biq-popup-name {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.1rem;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.625rem;
+  line-height: 1.1;
+}
+
+.biq-popup-detail {
+  font-size: 0.78rem;
+  color: #555;
+  line-height: 1.5;
+  margin-bottom: 0.375rem;
+  display: flex;
+  gap: 0.375rem;
+  align-items: flex-start;
+}
+.biq-popup-icon { flex-shrink: 0; }
+
+.biq-popup-cost {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.biq-popup-pkg-note {
+  margin-top: 0.5rem;
+  padding: 0.375rem 0.5rem;
+  background: #fff5f3;
+  border: 1px solid rgba(255,59,31,0.2);
+  border-radius: var(--radius-sm);
+  font-size: 0.72rem;
+  color: var(--accent);
+  line-height: 1.4;
+}
+
+/* ─── Leaflet zoom controls — Blaze style ─────────────────── */
+.leaflet-control-zoom {
+  border: var(--border) !important;
+  border-radius: var(--radius-md) !important;
+  overflow: hidden;
+  box-shadow: none !important;
+}
+.leaflet-control-zoom a {
+  font-weight: 700;
+  color: var(--ink) !important;
+  border-bottom: 1px solid var(--mist) !important;
+  background: var(--paper) !important;
+  width: 32px !important;
+  height: 32px !important;
+  line-height: 32px !important;
+  font-size: 16px !important;
+}
+.leaflet-control-zoom a:last-child { border-bottom: none !important; }
+.leaflet-control-zoom a:hover {
+  background: var(--ink) !important;
+  color: var(--paper) !important;
+}
+
+/* Attribution tiny */
+.leaflet-control-attribution {
+  font-size: 9px !important;
+  background: rgba(255,255,255,0.6) !important;
+  backdrop-filter: blur(4px);
+}

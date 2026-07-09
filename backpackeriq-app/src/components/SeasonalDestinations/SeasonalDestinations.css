@@ -1,0 +1,232 @@
+/* ─── Section ────────────────────────────────────────────── */
+.seasonal-section {
+  background: #F8F9FA;
+  padding: 5rem 5vw;
+  border-top: 1px solid #F0F0F0;
+}
+
+.seasonal-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.seasonal-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.seasonal-eyebrow {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 800;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #FF3B1F;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.seasonal-title {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 900;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  color: #1A1A1A;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.75rem;
+}
+
+.seasonal-sub {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: #666;
+}
+
+/* ─── Grid ───────────────────────────────────────────────── */
+.seasonal-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+/* ─── Card ───────────────────────────────────────────────── */
+.seasonal-card {
+  background: #FFFFFF;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid #E0E0E0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  transition: all 0.25s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.seasonal-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.12);
+}
+
+/* ─── Card Image ─────────────────────────────────────────── */
+.seasonal-card-img {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+}
+
+.seasonal-card-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.seasonal-card:hover .seasonal-card-img img {
+  transform: scale(1.06);
+}
+
+.seasonal-card-badge {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: #FF3B1F;
+  color: #FFFFFF;
+  font-family: 'Archivo', sans-serif;
+  font-weight: 800;
+  font-size: 0.6875rem;
+  letter-spacing: 0.04em;
+  padding: 0.25rem 0.625rem;
+  border-radius: 5px;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+/* ─── Card Body ──────────────────────────────────────────── */
+.seasonal-card-body {
+  padding: 1.1rem 1.25rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  flex: 1;
+}
+
+.seasonal-card-name {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 800;
+  font-size: 1.0625rem;
+  color: #1A1A1A;
+  letter-spacing: -0.01em;
+}
+
+.seasonal-card-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  color: #666;
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
+}
+
+.seasonal-card-cost {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  color: #FF3B1F;
+}
+
+.seasonal-card-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  background: #FF3B1F;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 7px;
+  padding: 0.55rem 1rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.875rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  margin-top: 0.5rem;
+  width: 100%;
+}
+
+.seasonal-card-cta:hover {
+  background: #E63812;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255,59,31,0.3);
+}
+
+/* ─── Empty State ────────────────────────────────────────── */
+.seasonal-empty {
+  text-align: center;
+  color: #999;
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  padding: 3rem 0;
+}
+
+/* ─── Loading State ──────────────────────────────────────── */
+.seasonal-loading {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+.seasonal-skeleton {
+  background: #FFFFFF;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid #F0F0F0;
+}
+
+.seasonal-skeleton-img {
+  aspect-ratio: 16/9;
+  background: linear-gradient(90deg, #F0F0F0 25%, #E8E8E8 50%, #F0F0F0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease infinite;
+}
+
+.seasonal-skeleton-body {
+  padding: 1.1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.seasonal-skeleton-line {
+  height: 14px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, #F0F0F0 25%, #E8E8E8 50%, #F0F0F0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease infinite;
+}
+
+.seasonal-skeleton-line--title { width: 65%; height: 18px; }
+.seasonal-skeleton-line--sm { width: 45%; }
+
+@keyframes shimmer {
+  to { background-position: -200% center; }
+}
+
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .seasonal-grid,
+  .seasonal-loading {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .seasonal-section {
+    padding: 3rem 1rem;
+  }
+  .seasonal-grid,
+  .seasonal-loading {
+    grid-template-columns: 1fr;
+  }
+}

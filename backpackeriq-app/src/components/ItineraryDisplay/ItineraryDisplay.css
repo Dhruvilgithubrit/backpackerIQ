@@ -1,0 +1,96 @@
+/* ─── Container ──────────────────────────────────────────── */
+.itin-container {
+  display: flex;
+  flex-direction: column;
+  background: #FFFFFF;
+  border: 1px solid #E0E0E0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  padding: 2rem;
+}
+
+/* ─── Markdown Styles ────────────────────────────────────── */
+.itin-markdown-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  color: #333;
+}
+
+.itin-h3 {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: #1A1A1A;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #F0F0F0;
+}
+
+.itin-h3:first-child {
+  margin-top: 0;
+}
+
+.itin-h4 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 1.0625rem;
+  color: #1A1A1A;
+  margin-top: 1rem;
+  margin-bottom: 0.25rem;
+}
+
+.itin-day-title {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
+  color: #FF3B1F;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.itin-p {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  margin-bottom: 0.75rem;
+}
+
+.itin-ul {
+  padding-left: 1.5rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.itin-li {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.itin-strong {
+  font-weight: 600;
+  color: #1A1A1A;
+}
+
+/* ─── Raw text fallback ──────────────────────────────────── */
+.itin-raw {
+  background: #FFFFFF;
+  border: 1px solid #E0E0E0;
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.itin-raw pre {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
+  white-space: pre-wrap;
+  line-height: 1.7;
+  color: #333;
+}

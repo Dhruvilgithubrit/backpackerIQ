@@ -1,0 +1,447 @@
+/* ═══════════════════════════════════════════════════════════
+   ADMIN DASHBOARD — Blaze design system
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Page shell ─────────────────────────────────────────── */
+.adm-page {
+  min-height: 100vh;
+  background: var(--mist-bg);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Topbar ─────────────────────────────────────────────── */
+.adm-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  height: 56px;
+  background: var(--ink);
+  gap: 1rem;
+}
+
+.adm-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+.adm-wordmark {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.0625rem;
+  color: var(--paper);
+  letter-spacing: -0.02em;
+}
+.adm-wordmark span { color: var(--accent); }
+
+.adm-badge {
+  background: var(--accent);
+  color: var(--paper);
+  font-size: 0.5625rem;
+  letter-spacing: 0.12em;
+  padding: 3px 8px;
+  border-radius: 2px;
+}
+
+.adm-topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.adm-stats {
+  font-size: 0.75rem;
+  color: rgba(255,255,255,0.45);
+}
+
+.adm-signout {
+  font-size: 0.8125rem;
+  padding: 0.4rem 0.875rem;
+  border-color: rgba(255,255,255,0.25);
+  color: rgba(255,255,255,0.65);
+}
+.adm-signout:hover {
+  background: rgba(255,255,255,0.1);
+  color: var(--paper);
+}
+
+/* ── Content area ───────────────────────────────────────── */
+.adm-content {
+  flex: 1;
+  padding: 1.75rem 2rem 4rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* ── Controls row ───────────────────────────────────────── */
+.adm-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* ── Tabs ───────────────────────────────────────────────── */
+.adm-tabs {
+  display: flex;
+  align-items: center;
+  border: var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--paper);
+}
+
+.adm-tab {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.25rem;
+  background: none;
+  border: none;
+  border-right: var(--border);
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #888;
+  transition: background var(--transition), color var(--transition);
+  white-space: nowrap;
+}
+.adm-tab:last-child { border-right: none; }
+.adm-tab:hover { background: var(--mist-bg); color: var(--ink); }
+
+.adm-tab--active {
+  background: var(--ink) !important;
+  color: var(--paper) !important;
+}
+
+.adm-tab-count {
+  font-size: 0.6875rem;
+  opacity: 0.55;
+}
+.adm-tab--active .adm-tab-count { opacity: 0.5; }
+
+/* ── Controls right side ────────────────────────────────── */
+.adm-controls-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.adm-search {
+  width: 240px;
+  height: 38px;
+  padding: 0 0.875rem;
+  font-size: 0.875rem;
+  border-radius: var(--radius-sm);
+}
+
+.adm-add-btn {
+  padding: 0.5rem 1.125rem;
+  font-size: 0.875rem;
+  height: 38px;
+  white-space: nowrap;
+}
+
+/* ── Form panel ─────────────────────────────────────────── */
+.adm-form-wrap {
+  background: var(--paper);
+  border: var(--border);
+  border-radius: var(--radius-md);
+  padding: 1.5rem 1.75rem 1.75rem;
+}
+
+.adm-form-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.125rem;
+  color: var(--ink);
+  margin-bottom: 1.25rem;
+  letter-spacing: -0.01em;
+}
+
+.adm-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.adm-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.adm-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.adm-form-field--full {
+  grid-column: 1 / -1;
+}
+
+.adm-form-label {
+  font-size: 0.625rem;
+  letter-spacing: 0.1em;
+  color: #888;
+}
+
+.adm-select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23999'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 2rem;
+}
+
+.adm-form-checkboxes {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  padding: 0.75rem 0 0.25rem;
+}
+
+.adm-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.adm-checkbox {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent);
+  cursor: pointer;
+}
+
+.adm-form-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  justify-content: flex-end;
+  border-top: var(--border-mist);
+  padding-top: 1.25rem;
+}
+
+/* ── Table ──────────────────────────────────────────────── */
+.adm-table-wrap {
+  background: var(--paper);
+  border: var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  overflow-x: auto;
+}
+
+.adm-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.adm-table thead {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.adm-table th {
+  padding: 0.75rem 1.125rem;
+  text-align: left;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.65);
+  white-space: nowrap;
+}
+
+.adm-table-row {
+  border-bottom: 1px solid var(--mist);
+  transition: background var(--transition);
+}
+.adm-table-row:last-child { border-bottom: none; }
+.adm-table-row:hover { background: var(--mist-bg); }
+
+.adm-table td {
+  padding: 0.75rem 1.125rem;
+  vertical-align: middle;
+  color: var(--ink);
+}
+
+.adm-table-empty {
+  text-align: center;
+  color: #aaa;
+  padding: 3rem !important;
+  font-style: italic;
+}
+
+.adm-cell-name {
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 0.1rem;
+}
+
+.adm-cell-sub {
+  font-size: 0.75rem;
+  color: #aaa;
+}
+
+.adm-cell-coords {
+  font-size: 0.75rem;
+  color: #888;
+}
+
+/* ── Category chips ─────────────────────────────────────── */
+.adm-category-chip {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 3px;
+  border: 1.5px solid currentColor;
+}
+.adm-cat--adventure { color: #1a6f8a; border-color: #1a6f8a; }
+.adm-cat--culture   { color: #9b4400; border-color: #9b4400; }
+.adm-cat--food      { color: #5a4a00; border-color: #5a4a00; }
+.adm-cat--nature    { color: #2e6b2e; border-color: #2e6b2e; }
+.adm-cat--spiritual { color: #6b2e6b; border-color: #6b2e6b; }
+.adm-cat--beach     { color: #186060; border-color: #186060; }
+
+/* ── Flags ──────────────────────────────────────────────── */
+.adm-flags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+
+.adm-flag {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  padding: 2px 6px;
+  border-radius: 2px;
+}
+.adm-flag--popular  { background: #ffefc0; color: #7a5700; }
+.adm-flag--pkg      { background: rgba(255,59,31,0.1); color: var(--accent); }
+.adm-flag--pkgonly  { background: var(--accent); color: var(--paper); }
+
+/* ── Row action buttons ─────────────────────────────────── */
+.adm-row-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.adm-action-btn {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.75rem;
+  padding: 0.3rem 0.625rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  transition: background var(--transition), color var(--transition);
+  white-space: nowrap;
+}
+
+.adm-action-btn--edit {
+  background: var(--mist-bg);
+  color: var(--ink);
+  border-color: var(--mist);
+}
+.adm-action-btn--edit:hover {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+.adm-action-btn--delete {
+  background: rgba(255,59,31,0.07);
+  color: var(--accent);
+  border-color: rgba(255,59,31,0.25);
+}
+.adm-action-btn--delete:hover {
+  background: var(--accent);
+  color: var(--paper);
+  border-color: var(--accent);
+}
+
+/* ── Destination chip in packages table ─────────────────── */
+.adm-dest-chip {
+  font-size: 0.75rem;
+  background: var(--mist-bg);
+  padding: 2px 8px;
+  border-radius: 99px;
+  border: var(--border-mist);
+  white-space: nowrap;
+}
+
+.adm-price-cell {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ── Delete confirm modal ───────────────────────────────── */
+.adm-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.adm-modal {
+  background: var(--paper);
+  border: var(--border);
+  border-radius: var(--radius-lg);
+  padding: 2rem 2.25rem;
+  max-width: 380px;
+  width: 100%;
+  animation: fadeUp 0.2s ease both;
+}
+
+.adm-modal-message {
+  font-size: 1rem;
+  color: var(--ink);
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.adm-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .adm-content { padding: 1.25rem 1rem 3rem; }
+  .adm-controls { flex-direction: column; align-items: flex-start; }
+  .adm-controls-right { width: 100%; }
+  .adm-search { width: 100%; flex: 1; }
+  .adm-form-grid { grid-template-columns: 1fr; }
+  .adm-form-field--full { grid-column: auto; }
+  .adm-stats { display: none; }
+}

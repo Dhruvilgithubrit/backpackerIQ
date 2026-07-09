@@ -1,0 +1,345 @@
+/* ─── Form ───────────────────────────────────────────────── */
+.plan-trip-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  color: #1A1A1A;
+}
+
+.form-error {
+  background: rgba(255, 59, 31, 0.08);
+  border: 1px solid rgba(255, 59, 31, 0.3);
+  color: #E63812;
+  padding: 0.875rem 1rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-family: 'Inter', sans-serif;
+  line-height: 1.5;
+}
+
+/* ─── Form Group ─────────────────────────────────────────── */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  position: relative;
+}
+
+.form-group label {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 700;
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #555;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-group label span {
+  color: #FF3B1F;
+  font-weight: 800;
+}
+
+/* ─── Destination Search ─────────────────────────────────── */
+.dest-search-box {
+  display: flex;
+  align-items: center;
+  background: #F8F9FA;
+  border: 1px solid #E0E0E0;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  gap: 0.75rem;
+  transition: all 0.2s ease;
+}
+
+.dest-search-box[data-focused="true"] {
+  border-color: #FF3B1F;
+  box-shadow: 0 0 0 3px rgba(255, 59, 31, 0.1);
+  background: #FFFFFF;
+}
+
+.dest-search-box svg {
+  color: #999;
+  flex-shrink: 0;
+}
+
+.dest-search-box input {
+  background: transparent;
+  border: none;
+  color: #1A1A1A;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+  width: 100%;
+  outline: none;
+}
+
+.dest-search-box input::placeholder {
+  color: #AAAAAA;
+}
+
+.dest-search-clear {
+  background: none;
+  border: none;
+  color: #AAAAAA;
+  font-size: 1.25rem;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.dest-search-clear:hover {
+  color: #FF3B1F;
+}
+
+/* ─── Dropdown ───────────────────────────────────────────── */
+.dest-suggestions {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: #FFFFFF;
+  border: 1px solid #E0E0E0;
+  border-radius: 10px;
+  list-style: none;
+  padding: 0.4rem 0;
+  margin: 0;
+  z-index: 9999;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  max-height: 280px;
+  overflow-y: auto;
+}
+
+.dest-suggestion-item {
+  padding: 0.65rem 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.dest-suggestion-item:hover {
+  background: #FFF5F3;
+}
+
+.dest-suggestion-type {
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.dest-suggestion-name {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  color: #1A1A1A;
+  flex: 1;
+}
+
+.dest-suggestion-state {
+  font-size: 0.75rem;
+  color: #999;
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.dest-suggestions-empty {
+  padding: 1rem;
+  color: #999;
+  font-size: 0.875rem;
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+}
+
+/* ─── Select ─────────────────────────────────────────────── */
+select {
+  background: #F8F9FA;
+  border: 1px solid #E0E0E0;
+  color: #1A1A1A;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  appearance: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23999' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+  width: 100%;
+}
+
+select:focus {
+  border-color: #FF3B1F;
+  box-shadow: 0 0 0 3px rgba(255,59,31,0.1);
+  background-color: #FFFFFF;
+}
+
+/* ─── Range Slider ───────────────────────────────────────── */
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(to right, #FF3B1F 0%, #FF3B1F var(--pct, 50%), #E0E0E0 var(--pct, 50%), #E0E0E0 100%);
+  outline: none;
+  cursor: pointer;
+  border: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 20px;
+  height: 20px;
+  background: #FF3B1F;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 3px solid #FFFFFF;
+  box-shadow: 0 2px 8px rgba(255,59,31,0.4);
+  transition: transform 0.2s;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: #FF3B1F;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 3px solid #FFFFFF;
+  box-shadow: 0 2px 8px rgba(255,59,31,0.4);
+}
+
+/* ─── Traveler Radio Buttons ─────────────────────────────── */
+.travelers-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.6rem;
+}
+
+.traveler-radio {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.625rem 0.75rem;
+  border: 1.5px solid #E0E0E0;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #555;
+  background: #F8F9FA;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.traveler-radio input {
+  display: none;
+}
+
+.traveler-radio:hover {
+  border-color: #FF3B1F;
+  color: #FF3B1F;
+  background: rgba(255,59,31,0.04);
+}
+
+.traveler-radio.active {
+  border-color: #FF3B1F;
+  background: rgba(255,59,31,0.08);
+  color: #FF3B1F;
+  font-weight: 700;
+}
+
+/* ─── Interests Chips ────────────────────────────────────── */
+.interests-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.interest-cb {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.45rem 0.875rem;
+  border: 1.5px solid #E0E0E0;
+  border-radius: 99px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #555;
+  background: #F8F9FA;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.interest-cb input {
+  display: none;
+}
+
+.interest-cb:hover {
+  border-color: #FF3B1F;
+  color: #FF3B1F;
+}
+
+.interest-cb.active {
+  background: #FF3B1F;
+  border-color: #FF3B1F;
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+/* ─── Submit Button ──────────────────────────────────────── */
+.form-submit-btn {
+  width: 100%;
+  padding: 1rem 2rem;
+  background: #FF3B1F;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Archivo', sans-serif;
+  font-weight: 800;
+  font-size: 1.0625rem;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.form-submit-btn:hover:not(:disabled) {
+  background: #E63812;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255,59,31,0.35);
+}
+
+.form-submit-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ─── Spinner ────────────────────────────────────────────── */
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: #FFFFFF;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}

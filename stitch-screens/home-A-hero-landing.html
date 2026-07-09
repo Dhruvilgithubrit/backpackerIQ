@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+
+<html class="scroll-smooth" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>BackpackerIQ | Digital Zen for the Modern Traveler</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Geist:wght@400;500;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f8f9ff; }
+        ::-webkit-scrollbar-thumb { background: #bcc9c6; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #00685f; }
+        @keyframes splash-in {
+            0% { opacity: 0; transform: scale(0.95); filter: blur(10px); }
+            100% { opacity: 1; transform: scale(1); filter: blur(0px); }
+        }
+        .splash-active { animation: splash-in 1s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+        .fade-out { opacity: 0; visibility: hidden; transition: opacity 0.6s ease-out, visibility 0.6s; }
+        .glass-nav { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dim": "#d0dbed", "on-primary-fixed-variant": "#005049", "tertiary": "#924628",
+                        "primary-fixed-dim": "#6bd8cb", "surface-container-lowest": "#ffffff", "tertiary-container": "#b05e3d",
+                        "primary": "#00685f", "surface-tint": "#006a61", "on-primary-fixed": "#00201d",
+                        "secondary-container": "#645efb", "on-secondary": "#ffffff", "primary-fixed": "#89f5e7",
+                        "on-primary-container": "#f4fffc", "primary-container": "#008378", "on-secondary-fixed": "#0f0069",
+                        "inverse-primary": "#6bd8cb", "inverse-on-surface": "#eaf1ff", "background": "#f8f9ff",
+                        "secondary-fixed-dim": "#c3c0ff", "outline": "#6d7a77", "on-background": "#121c2a",
+                        "secondary": "#4b41e1", "on-tertiary-container": "#fffbff", "on-secondary-fixed-variant": "#3323cc",
+                        "on-tertiary-fixed-variant": "#773215", "on-error-container": "#93000a", "surface-container-highest": "#d9e3f6",
+                        "error-container": "#ffdad6", "surface-variant": "#d9e3f6", "surface-container-high": "#dee9fc",
+                        "secondary-fixed": "#e2dfff", "tertiary-fixed-dim": "#ffb59a", "on-secondary-container": "#fffbff",
+                        "on-primary": "#ffffff", "inverse-surface": "#27313f", "on-tertiary-fixed": "#370e00",
+                        "error": "#ba1a1a", "surface-bright": "#f8f9ff", "surface-container-low": "#eff4ff",
+                        "on-surface": "#121c2a", "on-error": "#ffffff", "surface-container": "#e6eeff",
+                        "on-surface-variant": "#3d4947", "on-tertiary": "#ffffff", "surface": "#f8f9ff",
+                        "outline-variant": "#bcc9c6", "tertiary-fixed": "#ffdbce"
+                    },
+                    "borderRadius": { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px" },
+                    "spacing": { "xl": "80px", "base": "8px", "md": "24px", "lg": "48px", "container-max": "1200px", "sm": "12px", "gutter": "24px", "margin-mobile": "16px", "xs": "4px" },
+                    "fontFamily": { "display-lg": ["Geist"], "label-sm": ["Geist"], "body-md": ["Inter"], "label-md": ["Geist"], "body-lg": ["Inter"], "headline-md": ["Geist"], "headline-lg": ["Geist"], "headline-lg-mobile": ["Geist"] },
+                    "fontSize": {
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-sm": ["12px", { "lineHeight": "1.4", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "1.4", "letterSpacing": "0.02em", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "fontWeight": "600" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "1.2", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-md overflow-x-hidden">
+<div class="fixed inset-0 z-[100] bg-surface flex items-center justify-center transition-all duration-700" id="loading-splash">
+<div class="text-center splash-active">
+<div class="inline-flex items-center gap-base mb-sm">
+<span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings: 'FILL' 1;">explore</span>
+<h1 class="font-display-lg text-display-lg text-primary tracking-tighter">BackpackerIQ</h1>
+</div>
+<p class="font-label-md text-on-surface-variant tracking-widest uppercase">Digital Zen for India</p>
+</div>
+</div>
+<nav class="fixed top-0 w-full z-50 bg-white/60 dark:bg-surface/60 backdrop-blur-xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)]">
+<div class="flex justify-between items-center px-lg py-base max-w-container-max mx-auto w-full">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary text-headline-md" style="font-variation-settings: 'FILL' 1;">travel_explore</span>
+<span class="font-display-lg text-headline-md font-bold text-primary">BackpackerIQ</span>
+</div>
+<div class="hidden md:flex items-center gap-lg">
+<a class="font-label-md text-label-md text-primary dark:text-primary-fixed-dim border-b-2 border-primary transition-colors" href="#">How it works</a>
+<a class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-colors" href="#">Saved trips</a>
+</div>
+<div class="flex items-center gap-md">
+<button class="font-label-md text-label-md text-on-surface-variant hover:text-primary transition-all active:scale-95 duration-200">Login</button>
+<button class="bg-primary text-on-primary px-md py-sm rounded-full font-label-md text-label-md hover:bg-primary-container transition-all active:scale-95 duration-200">Sign up</button>
+</div>
+</div>
+</nav>
+<main class="pt-[72px]">
+<section class="relative h-[870px] w-full overflow-hidden bg-surface-container">
+<!-- NOTE: fake shader+threejs map background omitted here intentionally. See design-note-map.md - do not port, use the real Leaflet map from the React scaffold instead -->
+<div class="absolute inset-0 z-20 pointer-events-none">
+<div class="relative w-full h-full max-w-container-max mx-auto">
+<div class="absolute top-[40%] left-[25%] pointer-events-auto group">
+<div class="flex flex-col items-center">
+<span class="material-symbols-outlined text-[#F59E0B] text-4xl cursor-pointer hover:scale-110 transition-transform" style="font-variation-settings: 'FILL' 1;">location_on</span>
+<div class="bg-white/90 backdrop-blur-sm px-sm py-xs rounded-lg shadow-sm border border-outline-variant mt-xs opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="font-label-md text-primary">Rajasthan</span>
+</div>
+</div>
+</div>
+<div class="absolute top-[48%] left-[28%] pointer-events-auto group">
+<div class="flex flex-col items-center">
+<div class="w-3 h-3 bg-white border-2 border-primary rounded-full ring-4 ring-primary/20 animate-pulse"></div>
+<span class="mt-xs font-label-sm text-on-surface drop-shadow-md">Udaipur</span>
+</div>
+</div>
+<div class="absolute top-[35%] left-[38%] pointer-events-auto group">
+<div class="flex flex-col items-center">
+<div class="w-3 h-3 bg-white border-2 border-primary rounded-full ring-4 ring-primary/20"></div>
+<span class="mt-xs font-label-sm text-on-surface drop-shadow-md">Delhi</span>
+</div>
+</div>
+<div class="absolute top-[22%] left-[35%] pointer-events-auto group">
+<div class="flex flex-col items-center">
+<div class="w-3 h-3 bg-white border-2 border-primary rounded-full ring-4 ring-primary/20 animate-pulse"></div>
+<span class="mt-xs font-label-sm text-on-surface drop-shadow-md">Manali</span>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute bottom-md left-md z-30 flex flex-col gap-xs">
+<button class="w-10 h-10 bg-white/80 backdrop-blur-md rounded-lg shadow-sm flex items-center justify-center text-primary hover:bg-white transition-colors"><span class="material-symbols-outlined">add</span></button>
+<button class="w-10 h-10 bg-white/80 backdrop-blur-md rounded-lg shadow-sm flex items-center justify-center text-primary hover:bg-white transition-colors"><span class="material-symbols-outlined">remove</span></button>
+<button class="w-10 h-10 bg-white/80 backdrop-blur-md rounded-lg shadow-sm flex items-center justify-center text-primary hover:bg-white transition-colors"><span class="material-symbols-outlined">my_location</span></button>
+</div>
+<div class="absolute bottom-md right-md z-40 w-full max-w-[420px] px-margin-mobile md:px-0">
+<div class="bg-white/90 backdrop-blur-xl p-md rounded-2xl shadow-[0px_10px_30px_rgba(0,0,0,0.08)] border border-white/20">
+<h2 class="font-headline-md text-headline-md text-primary mb-md">Where to next?</h2>
+<div class="relative mb-md">
+<span class="material-symbols-outlined absolute left-md top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full pl-[52px] pr-md py-sm bg-surface-container-low border-none rounded-2xl focus:ring-2 focus:ring-primary/20 text-body-md placeholder:text-outline-variant" placeholder="Search a city or place in India..." type="text"/>
+<button class="absolute right-sm top-1/2 -translate-y-1/2 text-primary hover:bg-primary/10 p-xs rounded-full transition-colors" title="Use my location"><span class="material-symbols-outlined">gps_fixed</span></button>
+</div>
+<div class="flex flex-wrap gap-xs mb-lg">
+<button class="px-md py-xs rounded-full border border-outline-variant text-label-sm text-on-surface-variant hover:border-primary hover:text-primary transition-all">Solo trip</button>
+<button class="px-md py-xs rounded-full bg-primary text-white text-label-sm font-medium shadow-sm">Budget trip</button>
+<button class="px-md py-xs rounded-full border border-outline-variant text-label-sm text-on-surface-variant hover:border-primary hover:text-primary transition-all">Hostel-first</button>
+<button class="px-md py-xs rounded-full border border-outline-variant text-label-sm text-on-surface-variant hover:border-primary hover:text-primary transition-all">Weekend getaway</button>
+</div>
+<button class="w-full bg-primary text-on-primary py-md rounded-2xl font-headline-md text-headline-md shadow-lg shadow-primary/20 hover:bg-primary-container transition-all active:scale-[0.98]">Plan your next trip</button>
+</div>
+</div>
+</section>
+<section class="py-xl px-margin-mobile md:px-0">
+<div class="max-w-container-max mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-lg">
+<div class="group p-lg bg-white rounded-2xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0px_8px_30px_rgba(0,0,0,0.08)] transition-all border border-transparent hover:border-primary/10">
+<div class="w-12 h-12 bg-primary/10 text-primary rounded-xl flex items-center justify-center mb-md group-hover:scale-110 transition-transform"><span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">auto_awesome</span></div>
+<h3 class="font-headline-md text-headline-md text-on-background mb-sm">Smart itineraries</h3>
+<p class="font-body-md text-on-surface-variant">Custom AI-driven travel plans that adapt to your pace, budget, and local weather patterns in real-time.</p>
+<a class="mt-md inline-flex items-center gap-xs text-primary font-label-md hover:gap-sm transition-all" href="#">Explore tech <span class="material-symbols-outlined">arrow_forward</span></a>
+</div>
+<div class="group p-lg bg-white rounded-2xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0px_8px_30px_rgba(0,0,0,0.08)] transition-all border border-transparent hover:border-primary/10">
+<div class="w-12 h-12 bg-secondary/10 text-secondary rounded-xl flex items-center justify-center mb-md group-hover:scale-110 transition-transform"><span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">bed</span></div>
+<h3 class="font-headline-md text-headline-md text-on-background mb-sm">Hostels &amp; local stays</h3>
+<p class="font-body-md text-on-surface-variant">Curated backpacker-friendly lodging verified for safety, community vibes, and high-speed Wi-Fi.</p>
+<a class="mt-md inline-flex items-center gap-xs text-secondary font-label-md hover:gap-sm transition-all" href="#">View listings <span class="material-symbols-outlined">arrow_forward</span></a>
+</div>
+<div class="group p-lg bg-white rounded-2xl shadow-[0px_4px_20px_rgba(0,0,0,0.04)] hover:shadow-[0px_8px_30px_rgba(0,0,0,0.08)] transition-all border border-transparent hover:border-primary/10">
+<div class="w-12 h-12 bg-tertiary/10 text-tertiary rounded-xl flex items-center justify-center mb-md group-hover:scale-110 transition-transform"><span class="material-symbols-outlined text-3xl" style="font-variation-settings: 'FILL' 1;">mountain_flag</span></div>
+<h3 class="font-headline-md text-headline-md text-on-background mb-sm">Packages for remote regions</h3>
+<p class="font-body-md text-on-surface-variant">Expert guides and essential permits for Spiti, Ladakh, and Northeast India. Travel where others don't.</p>
+<a class="mt-md inline-flex items-center gap-xs text-tertiary font-label-md hover:gap-sm transition-all" href="#">See expeditions <span class="material-symbols-outlined">arrow_forward</span></a>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-surface-container-low dark:bg-surface-container-lowest border-t border-outline-variant dark:border-outline py-lg">
+<div class="flex flex-col md:flex-row justify-between items-center px-lg max-w-container-max mx-auto gap-lg">
+<div class="flex flex-col items-center md:items-start gap-xs">
+<div class="flex items-center gap-xs"><span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">explore</span><span class="font-display-lg text-headline-md font-bold text-primary">BackpackerIQ</span></div>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xs text-center md:text-left">© 2024 BackpackerIQ. Digital Zen for the Modern Traveler.</p>
+</div>
+<div class="flex flex-wrap justify-center gap-md">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">About India</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Safety Tips</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Terms of Service</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Privacy Policy</a>
+</div>
+</div>
+</footer>
+<script>
+        window.addEventListener('DOMContentLoaded', () => {
+            const splash = document.getElementById('loading-splash');
+            setTimeout(() => {
+                splash.classList.add('fade-out');
+                document.body.style.overflowY = 'auto';
+                setTimeout(() => { splash.style.display = 'none'; }, 600);
+            }, 1800);
+        });
+    </script>
+</body></html>

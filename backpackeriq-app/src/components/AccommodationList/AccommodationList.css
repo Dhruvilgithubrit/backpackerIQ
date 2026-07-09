@@ -1,0 +1,144 @@
+.acc-list-container {
+  margin-top: 3rem;
+  padding-top: 3rem;
+  border-top: 1px solid #E0E0E0;
+}
+
+.acc-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 4rem 2rem;
+  background: #FAFAFA;
+  border-radius: 12px;
+  border: 1px dashed #CCC;
+  text-align: center;
+  color: #666;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
+}
+
+.acc-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid rgba(255, 59, 31, 0.2);
+  border-top-color: #FF3B1F;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.acc-error {
+  padding: 1.5rem;
+  background: rgba(255, 59, 31, 0.08);
+  color: #FF3B1F;
+  border-radius: 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
+}
+
+.acc-header {
+  margin-bottom: 2rem;
+}
+
+.acc-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.acc-card {
+  background: #FFFFFF;
+  border: 1px solid #E0E0E0;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.acc-card:hover {
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+  border-color: #CCC;
+  transform: translateY(-2px);
+}
+
+.acc-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.acc-source {
+  display: inline-block;
+  font-family: 'Archivo', sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.4rem;
+}
+
+.acc-name {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 800;
+  font-size: 1.125rem;
+  color: #1A1A1A;
+}
+
+.acc-rating {
+  background: #F8F9FA;
+  padding: 0.35rem 0.6rem;
+  border-radius: 6px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 0.875rem;
+  color: #1A1A1A;
+  border: 1px solid #E0E0E0;
+  white-space: nowrap;
+}
+
+.acc-desc {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9375rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+.acc-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #F0F0F0;
+}
+
+.acc-price-wrap {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+
+.acc-price {
+  font-family: 'Archivo', sans-serif;
+  font-weight: 800;
+  font-size: 1.25rem;
+  color: #FF3B1F;
+}
+
+.acc-per-night {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.875rem;
+  color: #888;
+}
+
+.acc-book-btn {
+  padding: 0.5rem 1.25rem;
+  font-size: 0.875rem;
+}

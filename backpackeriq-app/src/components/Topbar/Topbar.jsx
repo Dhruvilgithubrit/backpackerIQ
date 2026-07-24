@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
+import UserPreferences from '../UserPreferences/UserPreferences'
 import './Topbar.css'
 
 export default function Topbar() {
@@ -9,6 +10,7 @@ export default function Topbar() {
   const { user, signOut } = useAuth()
   const [menuOpen, setMenuOpen] = useState(false)
   const [avatarOpen, setAvatarOpen] = useState(false)
+  const [prefsOpen, setPrefsOpen] = useState(false)
   const avatarRef = useRef(null)
 
   const initials = user?.email ? user.email.slice(0, 2).toUpperCase() : '??'
@@ -101,8 +103,14 @@ export default function Topbar() {
               {avatarOpen && (
                 <div className="tb-avatar-dropdown">
                   <div className="tb-avatar-email">{user.email}</div>
-                  <button className="tb-avatar-item" onClick={() => navigate('/plan')}>
+                  <button className="tb-avatar-item" onClick={() => { setAvatarOpen(false); navigate('/plan') }}>
                     🗺️ Plan a Trip
+                  </button>
+                  <button className="tb-avatar-item" onClick={() => { setAvatarOpen(false); navigate('/saved') }} id="topbar-saved-btn">
+                    🔖 Saved Trips
+                  </button>
+                  <button className="tb-avatar-item" onClick={() => { setAvatarOpen(false); setPrefsOpen(true) }} id="topbar-prefs-btn">
+                    ⚙️ Preferences
                   </button>
                   <button className="tb-avatar-item tb-avatar-item--danger" onClick={handleSignOut}>
                     Sign out
@@ -128,6 +136,8 @@ export default function Topbar() {
           </button>
         </div>
       </div>
+
+      {prefsOpen && <UserPreferences onClose={() => setPrefsOpen(false)} />}
     </header>
   )
 }

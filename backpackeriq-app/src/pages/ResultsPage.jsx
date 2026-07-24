@@ -1,9 +1,12 @@
 import { useState } from 'react'
 import { useNavigate, useSearchParams, useLocation } from 'react-router-dom'
-import { places, states, packagesByPlace } from '../data/locationsData'
+import { packagesByPlace, states, places } from '../data/locationsData'
+import InteractiveItinerary from '../components/InteractiveItinerary/InteractiveItinerary'
+import RouteMap from '../components/InteractiveItinerary/RouteMap'
 import ItineraryDisplay from '../components/ItineraryDisplay/ItineraryDisplay'
 import AccommodationList from '../components/AccommodationList/AccommodationList'
 import Topbar from '../components/Topbar/Topbar'
+import ShareTrip from '../components/ShareTrip/ShareTrip'
 import { useAuth } from '../context/AuthContext'
 import { supabase } from '../lib/supabase'
 import './ResultsPage.css'
@@ -92,11 +95,14 @@ export default function ResultsPage() {
         .from('user_itineraries')
         .insert({
           user_id: user.id,
-          destination: aiItineraryData.destination,
-          budget: aiItineraryData.budget,
-          days: aiItineraryData.days,
-          itinerary_content: aiItineraryData.itinerary
+          destination: name,
+          days: location.state?.days || 5,
+          budget: location.state?.budget || '₹10,000',
+          itinerary_content: typeof aiItineraryData.itinerary === 'string' 
+            ? aiItineraryData.itinerary 
+            : JSON.stringify(aiItineraryData.itinerary)
         })
+
       if (error) throw error
       setIsSaved(true)
       alert('Trip saved!')
@@ -156,24 +162,13 @@ export default function ResultsPage() {
             )}
           </div>
           <div className="res-hero-actions">
-            <button className="res-share-btn" onClick={() => navigator.share?.({ title: `${name} Trip`, url: window.location.href })}>
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M11 1l4 4-4 4M15 5H6a4 4 0 000 8h1" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-              Share
-            </button>
-            <button className="res-pdf-btn" onClick={() => window.print()} id="results-pdf-btn">
-              <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                <path d="M8 2v8M5 7l3 3 3-3M3 12h10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-              Export PDF
-            </button>
+            <ShareTrip destination={name} days={location.state?.days || 5} budget={location.state?.budget || ''} />
           </div>
         </div>
       </div>
 
       {/* ── Body ──────────────────────────────────────────── */}
-      <div className={`res-body ${hasPackages ? 'res-body--with-pkg' : ''}`}>
+      <div className={`res-body ${hasPackages ? 'res-body--with-pkg' : ''} ${aiItineraryData && typeof aiItineraryData.itinerary !== 'string' ? 'res-body--with-map' : ''}`}>
 
         {/* ── Left: Itinerary ──────────────────────────── */}
         <section className="res-itinerary-col">
@@ -191,7 +186,16 @@ export default function ResultsPage() {
             </div>
           ) : (
             <div className="res-days fade-in">
-              <ItineraryDisplay itineraryText={aiItineraryData.itinerary} />
+              {typeof aiItineraryData.itinerary === 'string' ? (
+                <ItineraryDisplay itineraryText={aiItineraryData.itinerary} />
+              ) : (
+                <InteractiveItinerary 
+                  initialData={aiItineraryData} 
+                  destination={name}
+                  budget={location.state?.budget || 'Standard'}
+                  travelers={location.state?.travelers || 'Solo'}
+                />
+              )}
 
               <AccommodationList 
                 destination={aiItineraryData.destination} 
@@ -233,6 +237,19 @@ export default function ResultsPage() {
             </div>
           )}
         </section>
+
+        {/* ── Center: Route Map ──────────────────────────── */}
+        {aiItineraryData && typeof aiItineraryData.itinerary !== 'string' && (
+          <section className="res-map-col fade-in">
+            <div className="res-col-header">
+              <h2 className="res-col-title">Route Map</h2>
+              <p className="res-col-sub">Your day-by-day journey</p>
+            </div>
+            <div className="res-map-wrap">
+              <RouteMap itinerary={aiItineraryData.itinerary.itinerary || []} />
+            </div>
+          </section>
+        )}
 
         {/* ── Right: Packages ──────────────────────────── */}
         {hasPackages && (

@@ -507,3 +507,56 @@
     grid-template-columns: 1fr 1fr;
   }
 }
+
+/* ─── Popular Destinations Section ───────────────────────── */
+.home-popular-section {
+  padding: 4rem 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.home-popular-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin-top: 2rem;
+}
+.home-popular-cta {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+/* ─── Updated legend (category colors) ───────────────────── */
+.home-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.875rem;
+  padding: 0.875rem 1.5rem;
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border-color, #E5E7EB);
+  border-radius: 99px;
+  margin: 1rem auto 0;
+  max-width: fit-content;
+}
+.home-legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--text-secondary, #555);
+}
+.home-legend-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 1.5px solid white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+@media (max-width: 600px) {
+  .home-popular-grid { grid-template-columns: 1fr; }
+  .home-legend { border-radius: var(--radius-md, 8px); }
+}
+

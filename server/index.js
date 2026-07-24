@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import generateItineraryRoute from './routes/api/generateItinerary.js';
+import regenerateDayRoute from './routes/api/regenerateDay.js';
 import searchAccommodationsRoute from './routes/api/searchAccommodations.js';
 
 dotenv.config();
@@ -12,8 +13,8 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
-// Routes
 app.use('/api', generateItineraryRoute);
+app.use('/api', regenerateDayRoute);
 app.use('/api', searchAccommodationsRoute);
 
 // Basic health check

@@ -1,0 +1,14 @@
+{
+  "name": "backpackeriq",
+  "version": "1.0.0",
+  "description": "Root package for running frontend and backend",
+  "scripts": {
+    "install:all": "npm install --prefix backpackeriq-app && npm install --prefix server",
+    "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
+    "dev:client": "npm run dev --prefix backpackeriq-app",
+    "dev:server": "npm run dev --prefix server"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

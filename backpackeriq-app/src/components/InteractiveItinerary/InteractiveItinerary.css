@@ -1,0 +1,253 @@
+.interactive-itin {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.itin-overview {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+}
+
+.itin-overview-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.itin-overview-header h3 {
+  margin: 0;
+  color: var(--text-primary);
+}
+
+.itin-overview-cost {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  background: var(--accent-light);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+}
+
+.itin-cost-label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.itin-cost-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--accent);
+  font-family: var(--font-mono);
+}
+
+.itin-overview-body {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 2rem;
+}
+
+.itin-overview-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.itin-section-title {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+.itin-section-text {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .itin-overview-body {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+.itin-days-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.itin-day-card {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-light);
+  transition: box-shadow var(--transition), transform 0.1s ease;
+  padding: 1.25rem;
+}
+
+.itin-day-card.is-dragging {
+  box-shadow: 0 12px 32px rgba(0,0,0,0.1);
+  border-color: var(--accent);
+  z-index: 10;
+}
+
+.itin-day-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 1rem;
+}
+
+.itin-drag-handle {
+  cursor: grab;
+  color: var(--text-muted);
+  font-size: 1.25rem;
+  line-height: 1;
+  padding: 0.25rem 0.5rem;
+  margin-right: 0.5rem;
+  user-select: none;
+}
+.itin-drag-handle:active {
+  cursor: grabbing;
+}
+
+.itin-day-title-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.itin-day-badge {
+  background: var(--accent-light);
+  color: var(--accent);
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.itin-day-title {
+  margin: 0;
+  color: var(--text-primary);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1rem;
+  letter-spacing: -0.01em;
+}
+
+.itin-day-activities {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.itin-activity {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.itin-time-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  font-family: var(--font-body);
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding-top: 0.35rem;
+}
+
+.itin-activity-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: var(--bg-secondary);
+  padding: 0.75rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+}
+
+.itin-activity-name {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.itin-activity-cost {
+  font-size: 0.85rem;
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-weight: 600;
+  white-space: nowrap;
+  background: var(--accent-light);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+}
+
+.itin-day-logistics {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  background: var(--bg-secondary);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  border-left: 3px solid var(--accent);
+}
+
+.itin-logistics-item {
+  font-size: 0.875rem;
+  font-family: var(--font-body);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+.itin-logistics-item span:first-child {
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-right: 0.25rem;
+  white-space: nowrap;
+}
+
+.itin-tips ul {
+  padding-left: 1.25rem;
+  margin-top: 0.75rem;
+}
+.itin-tips li {
+  margin-bottom: 0.625rem;
+  color: var(--text-secondary);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+  .itin-activity {
+    grid-template-columns: 1fr;
+    gap: 0.25rem;
+  }
+  .itin-time-label {
+    padding-top: 0;
+  }
+}

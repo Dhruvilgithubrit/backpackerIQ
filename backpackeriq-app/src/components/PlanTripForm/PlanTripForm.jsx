@@ -1,7 +1,18 @@
 import { useState, useRef, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { searchIndex } from '../../data/locationsData';
+import { destinationSearchIndex } from '../../data/destinationsData';
 import './PlanTripForm.css';
+
+// Merge old location data + new destinations dataset for search
+const combinedSearchIndex = [
+  ...searchIndex,
+  ...destinationSearchIndex.map(d => ({
+    id: d.id, name: d.name,
+    stateName: d.state,
+    type: 'place', stateId: d.id,
+  }))
+]
 
 const BUDGET_OPTIONS = [
   '₹5,000 (Shoestring)',
@@ -17,10 +28,11 @@ const INTERESTS = [
 
 const TRAVELERS = ['Solo', 'Couple', 'Group of Friends', 'Family'];
 
-export default function PlanTripForm() {
+export default function PlanTripForm({ onBudgetChange, onDaysChange }) {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [destination, setDestination] = useState(null);
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState(() => searchParams.get('dest') || '');
   const [suggestions, setSuggestions] = useState([]);
   const [isFocused, setIsFocused] = useState(false);
   
@@ -38,12 +50,26 @@ export default function PlanTripForm() {
   useEffect(() => {
     const q = query.trim().toLowerCase();
     if (!q) { setSuggestions([]); return; }
-    const matches = searchIndex.filter(item =>
+    const matches = combinedSearchIndex.filter(item =>
       item.name.toLowerCase().includes(q) ||
       (item.stateName && item.stateName.toLowerCase().includes(q))
-    ).slice(0, 8);
+    ).slice(0, 10);
     setSuggestions(matches);
   }, [query]);
+
+  // Auto-select destination from URL ?dest= param (e.g. from map pin click)
+  useEffect(() => {
+    const destName = searchParams.get('dest');
+    if (!destName) return;
+    const match = combinedSearchIndex.find(
+      item => item.name.toLowerCase() === destName.toLowerCase()
+    );
+    if (match) {
+      setDestination(match);
+      setQuery(match.name);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     function handler(e) {
@@ -192,7 +218,7 @@ export default function PlanTripForm() {
       {/* 2. Budget */}
       <div className="form-group">
         <label>Budget (Total)</label>
-        <select value={budget} onChange={(e) => setBudget(e.target.value)} disabled={loading} required>
+        <select value={budget} onChange={(e) => { setBudget(e.target.value); onBudgetChange?.(e.target.value); }} disabled={loading} required>
           <option value="" disabled>Select a budget</option>
           {BUDGET_OPTIONS.map(opt => (
             <option key={opt} value={opt}>{opt}</option>
@@ -208,7 +234,7 @@ export default function PlanTripForm() {
           min="2" 
           max="30" 
           value={days} 
-          onChange={(e) => setDays(Number(e.target.value))}
+          onChange={(e) => { setDays(Number(e.target.value)); onDaysChange?.(Number(e.target.value)); }}
           disabled={loading}
         />
       </div>

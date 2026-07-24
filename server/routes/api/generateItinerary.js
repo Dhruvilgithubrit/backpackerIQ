@@ -25,33 +25,35 @@ router.post('/generate-itinerary', async (req, res) => {
 Generate a highly-structured, practical day-by-day itinerary for backpackers.
 
 CRITICAL FORMATTING RULES:
-You MUST follow this exact structure, with these exact headings. Do not deviate.
+You MUST return your response as a valid JSON object. Do NOT include any markdown formatting around the JSON (like \`\`\`json). Just the raw JSON object.
 
-### How to Reach
-Provide clear, budget-friendly options to reach the destination by Train, Bus, and Flight. Include estimated costs.
+The JSON MUST match this exact schema:
+{
+  "how_to_reach": "Provide clear, budget-friendly options to reach the destination by Train, Bus, and Flight. Include estimated costs.",
+  "summary": { "total_cost": "Total Estimated Cost as string", "breakdown": "Short breakdown string" },
+  "tips": ["Tip 1", "Tip 2", "Tip 3", "Tip 4", "Tip 5"],
+  "itinerary": [
+    {
+      "id": "day-1",
+      "day": 1,
+      "title": "Title of the day",
+      "morning": { "activity": "Activity Name", "cost": "₹..." },
+      "afternoon": { "activity": "Activity Name", "cost": "₹..." },
+      "evening": { "activity": "Activity Name", "cost": "₹..." },
+      "accommodation": { "name": "Hostel Name", "cost": "₹..." },
+      "daily_transport": { "mode": "Transport Mode", "cost": "₹..." },
+      "locations": [
+        { "name": "Main Place Name", "lat": 26.9855, "lng": 75.8513 }
+      ]
+    }
+  ]
+}
 
-### Itinerary
-DAY 1: [Title of Day]
-- **Morning**: [Activity + Cost]
-- **Afternoon**: [Activity + Cost]
-- **Evening**: [Activity + Cost]
-- **Accommodation**: [Name + Cost]
-- **Daily Transport**: [Mode + Cost]
-
-DAY 2: [Title of Day]
-... (continue for the requested number of days)
-
-### Summary
-- **Total Estimated Cost**: [Amount]
-- **Budget Breakdown**: [Short breakdown]
-
-### 5 Travel Tips
-1. [Tip]
-... (list 5 practical tips)`;
+Provide realistic latitude and longitude for the locations (at least one main location per day).`;
 
   const userPrompt = `Generate a ${travelers}-traveler ${days}-day itinerary for ${destination} 
 with a budget of ${budget}. Interests: ${Array.isArray(interests) ? interests.join(', ') : interests}. 
-Make it highly practical with actual place names, exact transport methods, and realistic costs.`;
+Make it highly practical with actual place names, exact transport methods, and realistic costs. Output valid JSON.`;
 
   try {
     const chatCompletion = await groq.chat.completions.create({
@@ -60,16 +62,24 @@ Make it highly practical with actual place names, exact transport methods, and r
         { role: 'user', content: userPrompt }
       ],
       model: 'llama-3.3-70b-versatile',
+      response_format: { type: 'json_object' }
     });
 
-    const aiResponse = chatCompletion.choices[0]?.message?.content || '';
+    let aiResponse = chatCompletion.choices[0]?.message?.content || '{}';
+    let itineraryJson;
+    try {
+      itineraryJson = JSON.parse(aiResponse);
+    } catch (e) {
+      console.error("Failed to parse JSON", aiResponse);
+      itineraryJson = { error: "Failed to generate valid itinerary format." };
+    }
 
     res.json({
       success: true,
       destination,
       budget,
       days,
-      itinerary: aiResponse,
+      itinerary: itineraryJson,
       timestamp: new Date().toISOString()
     });
 

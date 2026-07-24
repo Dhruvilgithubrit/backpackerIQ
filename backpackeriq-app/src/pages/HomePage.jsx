@@ -1,12 +1,17 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Topbar from '../components/Topbar/Topbar'
 import IndiaMap from '../components/Map/IndiaMap'
-import SeasonalDestinations from '../components/SeasonalDestinations/SeasonalDestinations'
+import SeasonalSuggestions from '../components/SeasonalSuggestions/SeasonalSuggestions'
+import DestinationCard from '../components/DestinationCard/DestinationCard'
+import DestinationModal from '../components/DestinationModal/DestinationModal'
+import { getPopularDestinations } from '../data/destinationsData'
 import './HomePage.css'
 
 export default function HomePage() {
   const navigate = useNavigate()
-
+  const [modalDest, setModalDest] = useState(null)
+  const popularDests = getPopularDestinations(6)
 
   return (
     <div className="home-page">
@@ -65,7 +70,7 @@ export default function HomePage() {
           {[
             { icon: '🗺️', num: '5,000+', label: 'Itineraries Generated', desc: 'AI-crafted adventures' },
             { icon: '🎒', num: '2,000+', label: 'Happy Backpackers', desc: 'Across India' },
-            { icon: '📍', num: '50+', label: 'Destinations', desc: 'From Ladakh to Kanyakumari' },
+            { icon: '📍', num: '500+', label: 'Destinations', desc: 'From Ladakh to Andaman' },
           ].map(stat => (
             <div key={stat.label} className="home-stat-card">
               <span className="home-stat-icon">{stat.icon}</span>
@@ -87,15 +92,23 @@ export default function HomePage() {
         <div className="home-map-wrap">
           <IndiaMap />
         </div>
+        {/* Map legend — category colors */}
         <div className="home-legend">
-          <div className="home-legend-item">
-            <span className="home-legend-dot home-legend-dot--solid" />
-            <span>Destination</span>
-          </div>
-          <div className="home-legend-item">
-            <span className="home-legend-dot home-legend-dot--ring" />
-            <span>Package recommended</span>
-          </div>
+          {[
+            { color: '#3B82F6', label: 'Beach' },
+            { color: '#22C55E', label: 'Mountain' },
+            { color: '#A855F7', label: 'Culture' },
+            { color: '#F59E0B', label: 'Heritage' },
+            { color: '#FF3B1F', label: 'Adventure' },
+            { color: '#EC4899', label: 'Food' },
+            { color: '#84CC16', label: 'Wildlife' },
+            { color: '#F97316', label: 'Spiritual' },
+          ].map(({ color, label }) => (
+            <div key={label} className="home-legend-item">
+              <span className="home-legend-dot" style={{ background: color }} />
+              <span>{label}</span>
+            </div>
+          ))}
         </div>
         <div className="home-map-cta">
           <button className="home-hero-cta" onClick={() => navigate('/plan')}>
@@ -107,10 +120,31 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Seasonal Destinations ─────────────────────────── */}
-      <section id="seasonal">
-        <SeasonalDestinations />
+      {/* ── Popular Destinations ───────────────────────────── */}
+      <section className="home-popular-section" id="seasonal">
+        <div className="home-section-header">
+          <p className="home-section-eyebrow">Handpicked for you</p>
+          <h2 className="home-section-title">Most Loved Destinations</h2>
+          <p className="home-section-sub">Curated by traveller ratings and review count</p>
+        </div>
+        <div className="home-popular-grid">
+          {popularDests.map(dest => (
+            <DestinationCard
+              key={dest.id}
+              destination={dest}
+              onOpenModal={setModalDest}
+            />
+          ))}
+        </div>
+        <div className="home-popular-cta">
+          <button className="btn btn-outline" onClick={() => navigate('/plan')} id="home-view-all-btn">
+            View all 500+ destinations →
+          </button>
+        </div>
       </section>
+
+      {/* ── Seasonal Suggestions ──────────────────────────── */}
+      <SeasonalSuggestions />
 
       {/* ── Features Section ──────────────────────────────── */}
       <section className="home-features" id="how">
@@ -188,6 +222,10 @@ export default function HomePage() {
           <span>© 2025 BackpackerIQ. All rights reserved.</span>
         </div>
       </footer>
+      {/* Modal */}
+      {modalDest && (
+        <DestinationModal destination={modalDest} onClose={() => setModalDest(null)} />
+      )}
     </div>
   )
 }

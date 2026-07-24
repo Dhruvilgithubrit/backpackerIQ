@@ -1,0 +1,80 @@
+.route-map-container {
+  height: 100%;
+  width: 100%;
+  padding: 0.5rem;
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+}
+
+.route-map-empty {
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-secondary);
+  background: var(--bg-secondary);
+}
+
+/* Custom Marker */
+.route-marker-icon {
+  background: none;
+  border: none;
+}
+
+.route-marker-pin {
+  width: 30px;
+  height: 30px;
+  border-radius: 50% 50% 50% 0;
+  background: var(--accent);
+  position: absolute;
+  transform: rotate(-45deg);
+  left: 50%;
+  top: 50%;
+  margin: -15px 0 0 -15px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid white;
+}
+
+.route-marker-pin span {
+  width: 100%;
+  text-align: center;
+  color: white;
+  transform: rotate(45deg);
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* Popup */
+.route-map-popup .leaflet-popup-content-wrapper {
+  border-radius: var(--radius-md);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+}
+
+.route-popup-content {
+  text-align: center;
+}
+
+.route-popup-day {
+  display: inline-block;
+  background: var(--accent-light);
+  color: var(--accent);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.route-popup-content h4 {
+  margin: 0 0 4px;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.route-popup-content p {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-secondary);
+}

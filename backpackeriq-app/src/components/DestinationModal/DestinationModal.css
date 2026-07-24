@@ -1,0 +1,195 @@
+/* DestinationModal */
+.dmodal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  animation: fadeIn 0.2s ease;
+}
+
+.dmodal {
+  background: var(--bg-primary);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 24px 64px rgba(0,0,0,0.25);
+}
+
+/* ── Close button ─────────────────────────────────── */
+.dmodal-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 10;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0,0,0,0.5);
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition);
+  line-height: 1;
+}
+.dmodal-close:hover { background: rgba(0,0,0,0.75); }
+
+/* ── Hero ─────────────────────────────────────────── */
+.dmodal-hero {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+  background: var(--bg-tertiary);
+}
+.dmodal-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.dmodal-hero-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  background: var(--bg-secondary);
+}
+.dmodal-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.1) 60%, transparent 100%);
+}
+.dmodal-hero-content {
+  position: absolute;
+  bottom: 16px;
+  left: 20px;
+  right: 20px;
+}
+.dmodal-name {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.75rem;
+  color: white;
+  line-height: 1.1;
+  margin: 0;
+}
+.dmodal-state {
+  color: rgba(255,255,255,0.85);
+  font-size: 0.85rem;
+  margin: 4px 0 0;
+}
+
+/* ── Body ─────────────────────────────────────────── */
+.dmodal-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.dmodal-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.dmodal-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 3px 10px;
+  border-radius: 99px;
+}
+.dmodal-tag--cat {
+  background: var(--accent-light);
+  color: var(--accent);
+  border: 1px solid rgba(255,59,31,0.2);
+}
+.dmodal-tag--season {
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+}
+
+.dmodal-rating-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.dmodal-stars { color: #F59E0B; font-size: 1rem; }
+.dmodal-rating-num {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.dmodal-review-count { font-size: 0.8rem; color: var(--text-muted); }
+
+.dmodal-desc {
+  font-size: 0.95rem;
+  line-height: 1.65;
+  color: var(--text-secondary);
+}
+
+.dmodal-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.dmodal-info-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: var(--bg-secondary);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  border: 1px solid var(--border-light);
+}
+.dmodal-info-icon { font-size: 1.1rem; }
+.dmodal-info-label { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px; }
+.dmodal-info-val { font-family: var(--font-mono); font-size: 0.85rem; font-weight: 600; color: var(--accent); }
+
+.dmodal-section-title {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.95rem;
+  margin-bottom: 0.6rem;
+  color: var(--text-primary);
+}
+.dmodal-activities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.dmodal-activity {
+  font-size: 0.78rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 99px;
+  padding: 4px 12px;
+  color: var(--text-primary);
+}
+
+.dmodal-cta {
+  width: 100%;
+  padding: 0.85rem;
+  font-size: 1rem;
+}
+
+@media (max-width: 480px) {
+  .dmodal { max-width: 100%; max-height: 100vh; border-radius: var(--radius-lg) var(--radius-lg) 0 0; }
+  .dmodal-overlay { align-items: flex-end; padding: 0; }
+  .dmodal-info-grid { grid-template-columns: 1fr; }
+}

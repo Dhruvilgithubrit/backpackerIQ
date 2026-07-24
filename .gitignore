@@ -2,14 +2,26 @@
 .env
 .env.local
 .env.*.local
+server/.env
 
 # Dependencies
 node_modules/
+backpackeriq-app/node_modules/
+server/node_modules/
 
 # Build output
 dist/
 build/
+backpackeriq-app/dist/
 
 # OS files
 .DS_Store
 Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor
+.vscode/
+.idea/

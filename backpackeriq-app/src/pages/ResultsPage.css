@@ -142,14 +142,37 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 2.5rem 5vw 5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
-.res-body--with-pkg {
-  max-width: 1200px;
+.res-body--with-pkg,
+.res-body--with-map {
+  max-width: 1400px;
   display: grid;
-  grid-template-columns: 1fr 380px;
+  grid-template-columns: 1fr 1fr;
   gap: 2rem;
   align-items: flex-start;
+}
+
+.res-map-wrap {
+  position: sticky;
+  top: 100px;
+  height: calc(100vh - 120px);
+  min-height: 500px;
+}
+
+@media (max-width: 1024px) {
+  .res-body--with-pkg,
+  .res-body--with-map {
+    grid-template-columns: 1fr;
+  }
+  .res-map-wrap {
+    position: relative;
+    top: 0;
+    height: 500px;
+  }
 }
 
 /* ─── Column Headers ─────────────────────────────────────── */

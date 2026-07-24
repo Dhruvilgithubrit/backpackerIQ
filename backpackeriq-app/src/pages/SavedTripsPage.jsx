@@ -4,6 +4,8 @@ import { supabase } from '../lib/supabase'
 import { useAuth } from '../context/AuthContext'
 import Topbar from '../components/Topbar/Topbar'
 import ItineraryDisplay from '../components/ItineraryDisplay/ItineraryDisplay'
+import InteractiveItinerary from '../components/InteractiveItinerary/InteractiveItinerary'
+import UserPreferences from '../components/UserPreferences/UserPreferences'
 import './SavedTripsPage.css'
 
 export default function SavedTripsPage() {
@@ -12,6 +14,7 @@ export default function SavedTripsPage() {
   const [trips, setTrips] = useState([])
   const [loading, setLoading] = useState(true)
   const [expandedId, setExpandedId] = useState(null)
+  const [prefsOpen, setPrefsOpen] = useState(false)
 
   useEffect(() => {
     if (!user) {
@@ -57,8 +60,13 @@ export default function SavedTripsPage() {
       
       <main className="saved-content">
         <div className="saved-header">
-          <h1 className="saved-title t-display-lg">Saved Trips</h1>
-          <p className="saved-sub t-body">Access your personalized AI itineraries anytime.</p>
+          <div>
+            <h1 className="saved-title t-display-lg">Saved Trips</h1>
+            <p className="saved-sub t-body">Access your personalized AI itineraries anytime.</p>
+          </div>
+          <button className="btn btn-outline" onClick={() => setPrefsOpen(true)}>
+            ⚙️ Travel Preferences
+          </button>
         </div>
 
         {loading ? (
@@ -93,7 +101,17 @@ export default function SavedTripsPage() {
                 {expandedId === trip.id && (
                   <div className="saved-card-body fade-in">
                     <div className="saved-card-markdown">
-                      <ItineraryDisplay itineraryText={trip.itinerary_content} />
+                      {(() => {
+                        try {
+                          const parsed = JSON.parse(trip.itinerary_content);
+                          if (parsed && typeof parsed === 'object') {
+                            return <InteractiveItinerary initialData={{ itinerary: parsed }} destination={trip.destination} budget={trip.budget} travelers="Solo" />
+                          }
+                        } catch (e) {
+                          // Fallback to text
+                        }
+                        return <ItineraryDisplay itineraryText={trip.itinerary_content} />
+                      })()}
                     </div>
                     <div className="saved-card-actions">
                       <button className="btn btn-outline" onClick={() => handleDelete(trip.id)}>
@@ -107,6 +125,8 @@ export default function SavedTripsPage() {
           </div>
         )}
       </main>
+      
+      {prefsOpen && <UserPreferences onClose={() => setPrefsOpen(false)} />}
     </div>
   )
 }

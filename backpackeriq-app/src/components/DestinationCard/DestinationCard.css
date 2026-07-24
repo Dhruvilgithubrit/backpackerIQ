@@ -1,0 +1,173 @@
+/* DestinationCard styles */
+.dcard {
+  background: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-card);
+}
+.dcard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.12);
+}
+
+/* ── Image ──────────────────────────────────────────── */
+.dcard-img-wrap {
+  position: relative;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  background: var(--bg-tertiary);
+}
+.dcard-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.4s ease;
+}
+.dcard:hover .dcard-img {
+  transform: scale(1.05);
+}
+.dcard-img-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+}
+
+/* ── Badges ─────────────────────────────────────────── */
+.dcard-season-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(255,255,255,0.95);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 99px;
+  border: 1px solid rgba(0,0,0,0.08);
+  backdrop-filter: blur(4px);
+}
+.dcard-cat-tag {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 3px 8px;
+  border-radius: 99px;
+  background: rgba(255,59,31,0.9);
+  color: white;
+}
+.dcard-cat--beach    { background: rgba(59,130,246,0.9); }
+.dcard-cat--mountain { background: rgba(34,197,94,0.9); }
+.dcard-cat--wildlife { background: rgba(132,204,22,0.85); }
+.dcard-cat--spiritual{ background: rgba(249,115,22,0.9); }
+.dcard-cat--heritage { background: rgba(245,158,11,0.9); }
+.dcard-cat--food     { background: rgba(236,72,153,0.9); }
+
+/* ── Body ───────────────────────────────────────────── */
+.dcard-body {
+  padding: 1rem 1.1rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  flex: 1;
+}
+.dcard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+.dcard-name {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.05rem;
+  color: var(--text-primary);
+  line-height: 1.2;
+  margin: 0;
+}
+.dcard-state {
+  font-size: 0.78rem;
+  color: var(--text-secondary);
+  margin: 2px 0 0;
+}
+.dcard-rating {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+.dcard-star { color: #F59E0B; font-size: 0.9rem; }
+.dcard-rating-num {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+.dcard-reviews {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+}
+
+/* Budget */
+.dcard-budget {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  color: var(--accent);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.dcard-budget-icon { font-size: 0.8rem; }
+
+/* Activity pills */
+.dcard-activities {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.dcard-activity-pill {
+  font-size: 0.68rem;
+  font-weight: 500;
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-light);
+  border-radius: 99px;
+  padding: 2px 8px;
+  white-space: nowrap;
+}
+
+/* Plan CTA */
+.dcard-plan-btn {
+  margin-top: auto;
+  padding: 0.55rem 1rem;
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background var(--transition), transform var(--transition);
+  width: 100%;
+}
+.dcard-plan-btn:hover {
+  background: var(--accent-dark);
+  transform: translateY(-1px);
+}

@@ -1,13 +1,24 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { states, places } from '../data/locationsData'
+import { getPopularDestinations } from '../data/destinationsData'
 import Topbar from '../components/Topbar/Topbar'
 import PlanTripForm from '../components/PlanTripForm/PlanTripForm'
+import BudgetTracker from '../components/BudgetTracker/BudgetTracker'
+import SearchFilters from '../components/SearchFilters/SearchFilters'
+import DestinationCard from '../components/DestinationCard/DestinationCard'
+import DestinationModal from '../components/DestinationModal/DestinationModal'
 import './PlanTripPage.css'
 
 const popularPlaces = places.filter(p => p.popular)
 
 export default function PlanTripPage() {
   const navigate = useNavigate()
+  const [budget, setBudget] = useState('₹10,000 (Backpacker)')
+  const [days, setDays] = useState(7)
+  const [filteredDests, setFilteredDests] = useState(null)
+  const [modalDest, setModalDest] = useState(null)
+  const discoverDests = filteredDests ?? getPopularDestinations(12)
 
   function handlePlaceCard(place) {
     const params = new URLSearchParams({
@@ -58,15 +69,41 @@ export default function PlanTripPage() {
             <h2 className="plan-form-card-title">Build Your Itinerary</h2>
             <p className="plan-form-card-sub">Fill in the details and let AI craft your perfect trip</p>
           </div>
-          <PlanTripForm />
+          <PlanTripForm
+            onBudgetChange={setBudget}
+            onDaysChange={setDays}
+          />
+
+          {/* Budget Tracker */}
+          <div className="plan-budget-tracker-wrap">
+            <BudgetTracker budget={budget} days={days} />
+          </div>
         </div>
       </section>
 
-      {/* ── Popular places ────────────────────────────────────── */}
+      {/* ── Search + Discover ───────────────────────────── */}
       <main className="plan-main">
+        {/* ── Discover Destinations ─────────────────────── */}
         <section className="plan-section">
           <div className="plan-section-header">
-            <h2 className="plan-section-title">Most Popular</h2>
+            <h2 className="plan-section-title">Discover Destinations</h2>
+          </div>
+          <SearchFilters onFilterChange={setFilteredDests} />
+          <div className="plan-dests-grid">
+            {discoverDests.slice(0, 12).map(dest => (
+              <DestinationCard
+                key={dest.id}
+                destination={dest}
+                onOpenModal={setModalDest}
+              />
+            ))}
+          </div>
+        </section>
+
+        {/* ── Legacy popular places (original locationsData) ─── */}
+        <section className="plan-section">
+          <div className="plan-section-header">
+            <h2 className="plan-section-title">Quick Plan — Popular Spots</h2>
             <span className="plan-section-count">{popularPlaces.length} places</span>
           </div>
           <div className="plan-popular-grid">
@@ -117,6 +154,11 @@ export default function PlanTripPage() {
           </div>
         </section>
       </main>
+
+      {/* Modal */}
+      {modalDest && (
+        <DestinationModal destination={modalDest} onClose={() => setModalDest(null)} />
+      )}
     </div>
   )
 }

@@ -1,0 +1,72 @@
+/* ShareTrip */
+.st-root {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  padding: 0.75rem 1rem;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+}
+.st-label {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+.st-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.st-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0.4rem 0.875rem;
+  border-radius: var(--radius-md);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.8rem;
+  cursor: pointer;
+  text-decoration: none;
+  border: 1.5px solid transparent;
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+.st-btn--copy {
+  background: var(--bg-primary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+.st-btn--copy:hover { border-color: var(--text-primary); }
+.st-btn--copied {
+  background: rgba(34,197,94,0.08);
+  border-color: #16a34a;
+  color: #16a34a;
+}
+.st-btn--whatsapp {
+  background: #25D366;
+  color: white;
+}
+.st-btn--whatsapp:hover { background: #1ebe5c; }
+.st-btn--twitter {
+  background: #000;
+  color: white;
+}
+.st-btn--twitter:hover { background: #333; }
+.st-btn--pdf {
+  background: var(--bg-primary);
+  border-color: var(--border-color);
+  color: var(--text-primary);
+}
+.st-btn--pdf:hover { border-color: var(--accent); color: var(--accent); }
+.st-btn--native {
+  background: var(--bg-primary);
+  border-color: var(--border-color);
+  color: var(--text-secondary);
+}

@@ -1,0 +1,54 @@
+/* SeasonalSuggestions */
+.ss-section {
+  background: var(--bg-secondary);
+  padding: 4rem 0;
+  border-top: 1px solid var(--border-color);
+}
+.ss-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+.ss-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 2rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.ss-eyebrow {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin-bottom: 0.4rem;
+}
+.ss-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(1.6rem, 3vw, 2.25rem);
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  margin-bottom: 0.4rem;
+}
+.ss-sub {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+.ss-view-all {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.ss-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+@media (max-width: 600px) {
+  .ss-header { flex-direction: column; align-items: flex-start; }
+  .ss-grid { grid-template-columns: 1fr; }
+}

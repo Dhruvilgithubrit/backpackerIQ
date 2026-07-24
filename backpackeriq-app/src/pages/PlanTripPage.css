@@ -315,3 +315,23 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+/* ─── Budget Tracker wrapper ───────────────────────────────── */
+.plan-budget-tracker-wrap {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-color, #E5E7EB);
+}
+
+/* ─── Destinations grid (new 500+ data) ────────────────────── */
+.plan-dests-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1rem;
+}
+
+@media (max-width: 600px) {
+  .plan-dests-grid { grid-template-columns: 1fr; }
+}
+

@@ -4,6 +4,7 @@ import LoginPage from './pages/LoginPage'
 import HomePage from './pages/HomePage'
 import PlanTripPage from './pages/PlanTripPage'
 import ResultsPage from './pages/ResultsPage'
+import SavedTripsPage from './pages/SavedTripsPage'
 import AdminLoginPage from './pages/admin/AdminLoginPage'
 import AdminDashboard from './pages/admin/AdminDashboard'
 
@@ -34,6 +35,7 @@ export default function App() {
           <Route path="/" element={<ProtectedRoute><HomePage /></ProtectedRoute>} />
           <Route path="/plan" element={<ProtectedRoute><PlanTripPage /></ProtectedRoute>} />
           <Route path="/results" element={<ProtectedRoute><ResultsPage /></ProtectedRoute>} />
+          <Route path="/saved" element={<ProtectedRoute><SavedTripsPage /></ProtectedRoute>} />
 
           {/* ── Admin — completely separate, never linked from public app ── */}
           <Route path="/admin/login" element={<AdminLoginPage />} />

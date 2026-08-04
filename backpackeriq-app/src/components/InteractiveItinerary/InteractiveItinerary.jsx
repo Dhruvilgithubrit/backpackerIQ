@@ -67,7 +67,10 @@ export default function InteractiveItinerary({ initialData, destination, budget,
       {/* Overview Card */}
       <div className="itin-overview card">
         <div className="itin-overview-header">
-          <h3 className="t-display-sm">Trip Overview</h3>
+          <div className="itin-overview-title-wrap">
+            <span className="itin-overview-kicker">Summary</span>
+            <h3 className="itin-overview-title">Trip Overview</h3>
+          </div>
           <div className="itin-overview-cost">
             <span className="itin-cost-label">Est. Total Cost</span>
             <span className="itin-cost-value">{initialData?.itinerary?.summary?.total_cost}</span>

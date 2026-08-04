@@ -1,11 +1,32 @@
 /* ─── Page ───────────────────────────────────────────────── */
 .home-page {
   min-height: 100vh;
-  background: #FFFFFF;
+  background:
+    radial-gradient(circle at top left, rgba(255, 59, 31, 0.04), transparent 28%),
+    linear-gradient(180deg, #ffffff 0%, #fbfbfa 100%);
   color: #1A1A1A;
 }
 
 /* ─── Hero ───────────────────────────────────────────────── */
+
+/* Keyframes for mountain entrance */
+@keyframes heroImageReveal {
+  0%   { opacity: 0; transform: scale(1.12); }
+  100% { opacity: 1; transform: scale(1.04); }
+}
+
+/* Continuous slow drift (Ken Burns) after the reveal */
+@keyframes heroKenBurns {
+  0%   { transform: scale(1.04) translateY(0);      }
+  50%  { transform: scale(1.08) translateY(-1.5%);  }
+  100% { transform: scale(1.04) translateY(0);      }
+}
+
+@keyframes heroOverlayIn {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
+}
+
 .home-hero {
   position: relative;
   height: 90vh;
@@ -13,12 +34,15 @@
   display: flex;
   align-items: center;
   overflow: hidden;
+  isolation: isolate;
 }
 
 .home-hero-bg {
   position: absolute;
   inset: 0;
   z-index: 0;
+  /* expand slightly so Ken Burns drift never shows white edges */
+  transform-origin: center center;
 }
 
 .home-hero-bg img {
@@ -26,49 +50,123 @@
   height: 100%;
   object-fit: cover;
   object-position: center 40%;
+  /* Phase 1: fade-in + scale-in over 1.4s */
+  animation:
+    heroImageReveal 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+    heroKenBurns    18s  ease-in-out 1.4s infinite;
+  will-change: transform, opacity;
 }
 
 .home-hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to right, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.35) 60%, rgba(0,0,0,0.1) 100%);
+  background:
+    linear-gradient(to right, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.42) 52%, rgba(0,0,0,0.1) 100%),
+    radial-gradient(circle at 20% 30%, rgba(255, 59, 31, 0.12), transparent 36%);
+  animation: heroOverlayIn 1.8s ease forwards;
 }
 
 .home-hero-content {
   position: relative;
   z-index: 1;
   padding: 0 5vw;
-  max-width: 680px;
-  animation: fadeUp 0.7s ease both;
+  max-width: 720px;
+  border-left: 1px solid rgba(255,255,255,0.18);
+  padding-left: clamp(1.25rem, 3vw, 2rem);
 }
 
-.home-hero-eyebrow {
-  font-family: 'Archivo', sans-serif;
-  font-weight: 800;
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
+/* ── Hero badge ── */
+.home-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.95);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #FF3B1F;
-  margin-bottom: 1rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  backdrop-filter: blur(6px);
+  margin-bottom: 1.5rem;
+  animation: fadeUp 0.6s ease both;
+}
+
+@keyframes badgePulse {
+  0%, 100% { opacity: 1; transform: scale(1);   }
+  50%       { opacity: 0.4; transform: scale(0.7); }
+}
+
+.home-hero-badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #FF3B1F;
+  box-shadow: 0 0 6px rgba(255, 59, 31, 0.8);
+  animation: badgePulse 1.8s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
+/* ── Hero title lines — staggered ── */
+@keyframes lineSlideUp {
+  0%   { opacity: 0; transform: translateY(32px); }
+  100% { opacity: 1; transform: translateY(0);    }
 }
 
 .home-hero-title {
   font-family: 'Archivo', sans-serif;
   font-weight: 900;
-  font-size: clamp(2.5rem, 6vw, 4.5rem);
-  line-height: 1.0;
+  font-size: clamp(2.3rem, 5vw, 4.25rem);
+  line-height: 0.95;
   letter-spacing: -0.03em;
   color: #FFFFFF;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.08em;
 }
 
+.hero-line {
+  display: block;
+  opacity: 0;
+  animation: lineSlideUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.hero-line-1 { animation-delay: 0.15s; }
+.hero-line-2 { animation-delay: 0.32s; }
+.hero-line-3 { animation-delay: 0.49s; }
+
+/* Gradient italic "Adventure" */
+.hero-highlight {
+  font-style: italic;
+  background: linear-gradient(90deg, #FF3B1F 0%, #FF8C42 60%, #FFD166 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Subtitle ── */
 .home-hero-sub {
   font-family: 'Inter', sans-serif;
   font-size: 1.125rem;
-  line-height: 1.65;
-  color: rgba(255,255,255,0.85);
-  margin-bottom: 2rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 2.25rem;
+  animation: fadeUp 0.7s 0.65s ease both;
+  max-width: 520px;
 }
+
+.hero-sub-accent {
+  display: inline-block;
+  margin-top: 0.35rem;
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.9375rem;
+  font-style: italic;
+}
+
 
 .home-hero-actions {
   display: flex;
@@ -87,7 +185,7 @@
   font-size: 1rem;
   padding: 0.875rem 1.75rem;
   border: none;
-  border-radius: 8px;
+  border-radius: 999px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -101,17 +199,17 @@
 .home-hero-secondary {
   display: inline-flex;
   align-items: center;
-  background: rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.08);
   color: #FFFFFF;
   font-family: 'Inter', sans-serif;
   font-weight: 600;
   font-size: 1rem;
   padding: 0.875rem 1.75rem;
-  border: 1px solid rgba(255,255,255,0.4);
-  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.22);
+  border-radius: 999px;
   cursor: pointer;
   transition: all 0.2s ease;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(2px);
 }
 
 .home-hero-secondary:hover {
@@ -175,7 +273,7 @@
 
 /* ─── Stats ──────────────────────────────────────────────── */
 .home-stats {
-  background: #FFFFFF;
+  background: linear-gradient(180deg, #fff 0%, #fbfbfa 100%);
   border-bottom: 1px solid #F0F0F0;
 }
 
@@ -206,8 +304,19 @@
 }
 
 .home-stat-icon {
-  font-size: 2rem;
-  margin-bottom: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  margin-bottom: 0.85rem;
+  border: 1px solid rgba(26, 26, 26, 0.08);
+  border-radius: 999px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #1A1A1A;
+  background: #FFFFFF;
 }
 
 .home-stat-num {
@@ -237,43 +346,17 @@
 /* ─── Map Section ────────────────────────────────────────── */
 .home-map-section {
   padding: 5rem 5vw;
-  background: #F8F9FA;
+  background: linear-gradient(180deg, #fbfbfa 0%, #f7f7f5 100%);
 }
 
 .home-map-wrap {
   height: 400px;
   border-radius: 16px;
   overflow: hidden;
-  border: 1px solid #E0E0E0;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  border: 1px solid rgba(26,26,26,0.08);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.08);
   margin-bottom: 1.5rem;
 }
-
-.home-legend {
-  display: flex;
-  gap: 1.5rem;
-  justify-content: center;
-  margin-bottom: 2rem;
-}
-
-.home-legend-item {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.8125rem;
-  color: #666;
-  font-family: 'Inter', sans-serif;
-}
-
-.home-legend-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.home-legend-dot--solid { background: #FF3B1F; }
-.home-legend-dot--ring { background: transparent; border: 2px solid #FF3B1F; }
 
 .home-map-cta {
   display: flex;
@@ -298,24 +381,35 @@
 }
 
 .home-feature-card {
-  background: #F8F9FA;
-  border-radius: 12px;
+  background: linear-gradient(180deg, #ffffff 0%, #fcfcfb 100%);
+  border-radius: 16px;
   padding: 2rem;
   text-align: center;
   transition: all 0.2s ease;
-  border: 1px solid #F0F0F0;
+  border: 1px solid rgba(26,26,26,0.08);
 }
 
 .home-feature-card:hover {
   background: #FFFFFF;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.08);
   transform: translateY(-3px);
 }
 
 .home-feature-icon {
-  font-size: 2.5rem;
-  display: block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
   margin-bottom: 1rem;
+  border-radius: 999px;
+  background: rgba(255, 59, 31, 0.08);
+  color: #FF3B1F;
+  border: 1px solid rgba(255, 59, 31, 0.12);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
 }
 
 .home-feature-title {
@@ -335,7 +429,7 @@
 
 /* ─── CTA Strip ──────────────────────────────────────────── */
 .home-cta-strip {
-  background: linear-gradient(135deg, #FF3B1F 0%, #E63812 50%, #CC2E0A 100%);
+  background: linear-gradient(135deg, #181818 0%, #272727 55%, #111111 100%);
   padding: 5rem 5vw;
 }
 
@@ -370,7 +464,7 @@
   font-size: 1rem;
   padding: 0.875rem 2rem;
   border: none;
-  border-radius: 8px;
+  border-radius: 999px;
   cursor: pointer;
   transition: all 0.2s ease;
 }

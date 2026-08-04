@@ -12,14 +12,14 @@ export default function DestinationCard({ destination, onOpenModal }) {
   const primaryCategory = category[0] || 'culture'
   const primarySeason   = season_best[0] || 'all-year'
 
-  const seasonLabel = { winter: '❄️ Winter', summer: '☀️ Summer', monsoon: '🌧️ Monsoon', 'all-year': '🗓️ All Year' }
-  const categoryLabel = { beach: '🏖️ Beach', mountain: '⛰️ Mountain', culture: '🏛️ Culture',
-    heritage: '🏰 Heritage', adventure: '🧗 Adventure', food: '🍛 Food',
-    wildlife: '🐅 Wildlife', spiritual: '🕌 Spiritual' }
+  const seasonLabel = { winter: 'Winter', summer: 'Summer', monsoon: 'Monsoon', 'all-year': 'All year' }
+  const categoryLabel = { beach: 'Beach', mountain: 'Mountain', culture: 'Culture',
+    heritage: 'Heritage', adventure: 'Adventure', food: 'Food',
+    wildlife: 'Wildlife', spiritual: 'Spiritual' }
 
   function handlePlanTrip(e) {
     e.stopPropagation()
-    navigate(`/plan?dest=${encodeURIComponent(name)}`)
+    navigate(`/plan?dest=${encodeURIComponent(id)}`)
   }
 
   return (
@@ -35,13 +35,13 @@ export default function DestinationCard({ destination, onOpenModal }) {
             onError={() => setImgError(true)}
           />
         ) : (
-          <div className="dcard-img-fallback">{categoryLabel[primaryCategory]?.split(' ')[0] || '📍'}</div>
+          <div className="dcard-img-fallback">{categoryLabel[primaryCategory] || 'Trip'}</div>
         )}
         {/* Season badge */}
         <span className="dcard-season-badge">{seasonLabel[primarySeason] || '🗓️ All Year'}</span>
         {/* Category tag */}
         <span className={`dcard-cat-tag dcard-cat--${primaryCategory}`}>
-          {(categoryLabel[primaryCategory] || primaryCategory).replace(/[^\w\s]/g, '').trim()}
+          {categoryLabel[primaryCategory] || primaryCategory}
         </span>
       </div>
 
@@ -50,7 +50,7 @@ export default function DestinationCard({ destination, onOpenModal }) {
         <div className="dcard-header">
           <div>
             <h3 className="dcard-name">{name}</h3>
-            <p className="dcard-state">📍 {state}</p>
+            <p className="dcard-state">{state}</p>
           </div>
           {rating && (
             <div className="dcard-rating">
@@ -64,7 +64,7 @@ export default function DestinationCard({ destination, onOpenModal }) {
         {/* Budget */}
         {budget_range && (
           <p className="dcard-budget">
-            <span className="dcard-budget-icon">💰</span>
+            <span className="dcard-budget-label">Budget</span>
             {budget_range}
           </p>
         )}

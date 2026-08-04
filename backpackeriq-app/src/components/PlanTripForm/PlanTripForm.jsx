@@ -57,19 +57,27 @@ export default function PlanTripForm({ onBudgetChange, onDaysChange }) {
     setSuggestions(matches);
   }, [query]);
 
-  // Auto-select destination from URL ?dest= param (e.g. from map pin click)
   useEffect(() => {
     const destName = searchParams.get('dest');
-    if (!destName) return;
+    if (!destName) {
+      setDestination(null);
+      setQuery('');
+      return;
+    }
+
+    const normalized = destName.toLowerCase();
     const match = combinedSearchIndex.find(
-      item => item.name.toLowerCase() === destName.toLowerCase()
+      item => item.id.toLowerCase() === normalized || item.name.toLowerCase() === normalized
     );
+
     if (match) {
       setDestination(match);
       setQuery(match.name);
+    } else {
+      setDestination(null);
+      setQuery(destName);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [searchParams]);
 
   useEffect(() => {
     function handler(e) {
@@ -117,10 +125,15 @@ export default function PlanTripForm({ onBudgetChange, onDaysChange }) {
     setLoading(true);
     setError(null);
 
+    // 60-second timeout — Groq can be slow for long itineraries
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 60000);
+
     try {
       const response = await fetch('/api/generate-itinerary', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        signal: controller.signal,
         body: JSON.stringify({
           destination: destination.name,
           budget,
@@ -130,12 +143,17 @@ export default function PlanTripForm({ onBudgetChange, onDaysChange }) {
         }),
       });
 
+      clearTimeout(timeoutId);
+
       let data;
       const contentType = response.headers.get("content-type");
-      if (contentType && contentType.indexOf("application/json") !== -1) {
+      if (contentType && contentType.includes("application/json")) {
         data = await response.json();
       } else {
-        throw new Error('Server returned an invalid response. Please try again.');
+        // Server returned HTML (likely a crash/proxy error) — log it
+        const text = await response.text();
+        console.error('Non-JSON response from server:', text.substring(0, 500));
+        throw new Error(`Server error (${response.status}). Please try again.`);
       }
 
       if (!response.ok) {
@@ -152,7 +170,12 @@ export default function PlanTripForm({ onBudgetChange, onDaysChange }) {
       navigate(`/results?${params.toString()}`, { state: { itineraryData: data, travelers: traveler } });
       
     } catch (err) {
-      setError(err.message);
+      clearTimeout(timeoutId);
+      if (err.name === 'AbortError') {
+        setError('Request timed out. The AI is taking too long — try fewer days or a simpler destination.');
+      } else {
+        setError(err.message);
+      }
       setLoading(false);
     }
   };
@@ -228,15 +251,28 @@ export default function PlanTripForm({ onBudgetChange, onDaysChange }) {
 
       {/* 3. Duration */}
       <div className="form-group">
-        <label>Duration: <span>{days} Days</span></label>
-        <input 
-          type="range" 
-          min="2" 
-          max="30" 
-          value={days} 
-          onChange={(e) => { setDays(Number(e.target.value)); onDaysChange?.(Number(e.target.value)); }}
-          disabled={loading}
-        />
+        <label className="duration-label">
+          Duration
+          <span className="duration-value">{days} {days === 1 ? 'Day' : 'Days'}</span>
+        </label>
+        <div className="duration-slider-wrap">
+          <input
+            type="range"
+            min="2"
+            max="30"
+            value={days}
+            style={{ '--pct': `${((days - 2) / (30 - 2)) * 100}%` }}
+            onChange={(e) => { setDays(Number(e.target.value)); onDaysChange?.(Number(e.target.value)); }}
+            disabled={loading}
+          />
+          <div className="duration-ticks">
+            <span>2d</span>
+            <span>7d</span>
+            <span>14d</span>
+            <span>21d</span>
+            <span>30d</span>
+          </div>
+        </div>
       </div>
 
       {/* 4. Travelers */}

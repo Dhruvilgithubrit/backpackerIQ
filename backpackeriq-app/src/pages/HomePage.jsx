@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Topbar from '../components/Topbar/Topbar'
 import IndiaMap from '../components/Map/IndiaMap'
@@ -8,10 +8,62 @@ import DestinationModal from '../components/DestinationModal/DestinationModal'
 import { getPopularDestinations } from '../data/destinationsData'
 import './HomePage.css'
 
+// ── CountUp hook ──────────────────────────────────────────────────────────────
+function useCountUp(target, duration = 1800, started = false) {
+  const [count, setCount] = useState(0)
+  useEffect(() => {
+    if (!started) return
+    let start = null
+    const step = (timestamp) => {
+      if (!start) start = timestamp
+      const progress = Math.min((timestamp - start) / duration, 1)
+      // ease-out cubic
+      const eased = 1 - Math.pow(1 - progress, 3)
+      setCount(Math.floor(eased * target))
+      if (progress < 1) requestAnimationFrame(step)
+    }
+    requestAnimationFrame(step)
+  }, [started, target, duration])
+  return count
+}
+
+// ── StatCard with individual counter ─────────────────────────────────────────
+function StatCard({ icon, target, suffix, label, desc, started }) {
+  const count = useCountUp(target, 1800, started)
+  return (
+    <div className="home-stat-card">
+      <span className="home-stat-icon">{icon}</span>
+      <span className="home-stat-num">
+        {count.toLocaleString()}{suffix}
+      </span>
+      <span className="home-stat-label">{label}</span>
+      <span className="home-stat-desc">{desc}</span>
+    </div>
+  )
+}
+
 export default function HomePage() {
   const navigate = useNavigate()
   const [modalDest, setModalDest] = useState(null)
   const popularDests = getPopularDestinations(6)
+  const [statsStarted, setStatsStarted] = useState(false)
+  const statsRef = useRef(null)
+
+  useEffect(() => {
+    const el = statsRef.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setStatsStarted(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.3 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <div className="home-page">
@@ -27,21 +79,37 @@ export default function HomePage() {
           <div className="home-hero-overlay" />
         </div>
         <div className="home-hero-content">
-          <p className="home-hero-eyebrow">AI-Powered Travel Planning</p>
+          {/* Badge */}
+          <div className="home-hero-badge">
+            <span className="home-hero-badge-dot" />
+            <span>AI-Powered · Built for Backpackers</span>
+          </div>
+
+          {/* Title */}
           <h1 className="home-hero-title">
-            Explore India<br />Like Never Before
+            <span className="hero-line hero-line-1">Your Next</span>
+            <span className="hero-line hero-line-2">
+              Indian <em className="hero-highlight">Adventure</em>
+            </span>
+            <span className="hero-line hero-line-3">Starts Here.</span>
           </h1>
+
+          {/* Subtitle */}
           <p className="home-hero-sub">
-            AI-powered budget itineraries tailored for backpackers.<br />
-            Real places, real costs, real adventures.
+            Drop a destination. Set a budget. Get a full itinerary —
+            real places, real costs, zero guesswork.
+            <br />
+            <span className="hero-sub-accent">Built for those who travel light and dream big.</span>
           </p>
+
+          {/* Actions */}
           <div className="home-hero-actions">
             <button
               className="home-hero-cta"
               onClick={() => navigate('/plan')}
               id="home-start-planning-btn"
             >
-              Start Planning Free
+              Plan My Trip — It's Free
               <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
                 <path d="M3 9h12M11 5l4 4-4 4" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
@@ -52,7 +120,7 @@ export default function HomePage() {
                 document.getElementById('home-map-section')?.scrollIntoView({ behavior: 'smooth' })
               }}
             >
-              Explore Destinations
+              Browse Destinations
             </button>
           </div>
         </div>
@@ -65,20 +133,11 @@ export default function HomePage() {
       </section>
 
       {/* ── Stats Section ─────────────────────────────────── */}
-      <section className="home-stats" id="home-stats">
+      <section className="home-stats" id="home-stats" ref={statsRef}>
         <div className="home-stats-inner">
-          {[
-            { icon: '🗺️', num: '5,000+', label: 'Itineraries Generated', desc: 'AI-crafted adventures' },
-            { icon: '🎒', num: '2,000+', label: 'Happy Backpackers', desc: 'Across India' },
-            { icon: '📍', num: '500+', label: 'Destinations', desc: 'From Ladakh to Andaman' },
-          ].map(stat => (
-            <div key={stat.label} className="home-stat-card">
-              <span className="home-stat-icon">{stat.icon}</span>
-              <span className="home-stat-num">{stat.num}</span>
-              <span className="home-stat-label">{stat.label}</span>
-              <span className="home-stat-desc">{stat.desc}</span>
-            </div>
-          ))}
+          <StatCard icon="01" target={5000} suffix="+" label="Itineraries Generated" desc="AI-crafted adventures" started={statsStarted} />
+          <StatCard icon="02" target={2000} suffix="+" label="Happy Backpackers" desc="Across India" started={statsStarted} />
+          <StatCard icon="03" target={500} suffix="+" label="Destinations" desc="From Ladakh to Andaman" started={statsStarted} />
         </div>
       </section>
 
@@ -91,24 +150,6 @@ export default function HomePage() {
         </div>
         <div className="home-map-wrap">
           <IndiaMap />
-        </div>
-        {/* Map legend — category colors */}
-        <div className="home-legend">
-          {[
-            { color: '#3B82F6', label: 'Beach' },
-            { color: '#22C55E', label: 'Mountain' },
-            { color: '#A855F7', label: 'Culture' },
-            { color: '#F59E0B', label: 'Heritage' },
-            { color: '#FF3B1F', label: 'Adventure' },
-            { color: '#EC4899', label: 'Food' },
-            { color: '#84CC16', label: 'Wildlife' },
-            { color: '#F97316', label: 'Spiritual' },
-          ].map(({ color, label }) => (
-            <div key={label} className="home-legend-item">
-              <span className="home-legend-dot" style={{ background: color }} />
-              <span>{label}</span>
-            </div>
-          ))}
         </div>
         <div className="home-map-cta">
           <button className="home-hero-cta" onClick={() => navigate('/plan')}>
@@ -156,17 +197,17 @@ export default function HomePage() {
           <div className="home-features-grid">
             {[
               {
-                icon: '🤖',
+                icon: 'A1',
                 title: 'AI-Powered Planning',
                 desc: 'Llama 3.3 AI generates day-by-day itineraries specific to your budget, interests and travel style.',
               },
               {
-                icon: '💰',
+                icon: 'B2',
                 title: 'Budget-First Design',
                 desc: 'Every recommendation is priced for backpackers — from ₹5,000 shoestring to ₹30,000 comfort trips.',
               },
               {
-                icon: '🏔️',
+                icon: 'C3',
                 title: 'Local Insider Tips',
                 desc: 'Real advice on local transport, street food spots, permits, and hidden gems most tourists miss.',
               },

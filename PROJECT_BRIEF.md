@@ -149,3 +149,7 @@ above (no dropdowns, side-by-side packages not tabs).
 Verify each step in-browser (screenshot via browser subagent) before
 moving to the next — especially step 2 (login gate must actually block
 access) and step 5 (package section must only appear conditionally).
+
+
+Email: admin@backpackeriq.com
+Password: biq_admin_2024

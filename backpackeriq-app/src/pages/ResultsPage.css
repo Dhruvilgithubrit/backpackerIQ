@@ -1,7 +1,9 @@
 /* ─── Page ───────────────────────────────────────────────── */
 .res-page {
   min-height: 100vh;
-  background: #F8F9FA;
+  background:
+    radial-gradient(circle at top left, rgba(255, 59, 31, 0.03), transparent 24%),
+    linear-gradient(180deg, #ffffff 0%, #fbfbfa 100%);
   color: #1A1A1A;
 }
 
@@ -24,10 +26,12 @@
 /* ─── Hero ───────────────────────────────────────────────── */
 .res-hero {
   position: relative;
-  min-height: 320px;
+  min-height: 340px;
   display: flex;
   align-items: flex-end;
   overflow: hidden;
+  /* Dark fallback — always visible even without a photo */
+  background: linear-gradient(135deg, #1a0a00 0%, #2d1200 40%, #1a1a1a 100%);
 }
 
 .res-hero-bg {
@@ -45,68 +49,73 @@
 .res-hero-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.15) 100%);
+  background:
+    linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.6) 45%, rgba(0,0,0,0.25) 100%),
+    radial-gradient(circle at 20% 20%, rgba(255, 59, 31, 0.15), transparent 40%);
 }
 
 .res-hero-content {
   position: relative;
   z-index: 1;
-  padding: 2.5rem 5vw;
+  padding: 2rem clamp(1.25rem, 5vw, 3rem) 2.5rem;
   width: 100%;
+  border-left: 3px solid rgba(255, 59, 31, 0.7);
+  padding-left: clamp(1.25rem, 3vw, 2rem);
 }
 
 .res-hero-breadcrumb {
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .res-back-btn {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  background: rgba(255,255,255,0.15);
-  border: 1px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.2);
   color: rgba(255,255,255,0.9);
   font-family: 'Inter', sans-serif;
   font-size: 0.875rem;
   font-weight: 500;
   padding: 0.35rem 0.875rem;
-  border-radius: 6px;
+  border-radius: 999px;
   cursor: pointer;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(2px);
   transition: all 0.2s;
 }
 
 .res-back-btn:hover {
-  background: rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.16);
 }
 
 .res-dest-name {
   font-family: 'Archivo', sans-serif;
   font-weight: 900;
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  color: #FFFFFF;
+  font-size: clamp(2rem, 5vw, 3.75rem);
+  color: #ffffff;
   letter-spacing: -0.03em;
-  line-height: 1;
-  margin-bottom: 1rem;
+  line-height: 1.1;
+  margin: 0.25rem 0 0.85rem;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5), 0 4px 24px rgba(0,0,0,0.6);
 }
 
 .res-hero-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
-  margin-bottom: 1.25rem;
+  margin-bottom: 1rem;
 }
 
 .res-hero-chip {
-  background: rgba(255,255,255,0.15);
-  border: 1px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.2);
   color: rgba(255,255,255,0.95);
   font-family: 'Inter', sans-serif;
   font-size: 0.8125rem;
   font-weight: 500;
   padding: 0.3rem 0.75rem;
   border-radius: 99px;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(2px);
 }
 
 .res-hero-actions {
@@ -119,22 +128,22 @@
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  background: rgba(255,255,255,0.15);
-  border: 1px solid rgba(255,255,255,0.35);
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.22);
   color: rgba(255,255,255,0.9);
   font-family: 'Inter', sans-serif;
   font-size: 0.875rem;
   font-weight: 500;
   padding: 0.45rem 1rem;
-  border-radius: 7px;
+  border-radius: 999px;
   cursor: pointer;
-  backdrop-filter: blur(4px);
+  backdrop-filter: blur(2px);
   transition: all 0.2s;
 }
 
 .res-share-btn:hover,
 .res-pdf-btn:hover {
-  background: rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.16);
 }
 
 /* ─── Body Layout ────────────────────────────────────────── */
@@ -178,30 +187,33 @@
 /* ─── Column Headers ─────────────────────────────────────── */
 .res-col-header {
   margin-bottom: 1.5rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid rgba(26,26,26,0.08);
 }
 
 .res-col-title {
   font-family: 'Archivo', sans-serif;
   font-weight: 900;
-  font-size: 1.5rem;
+  font-size: 1.7rem;
   color: #1A1A1A;
-  letter-spacing: -0.02em;
-  margin-bottom: 0.3rem;
+  letter-spacing: -0.03em;
+  margin-bottom: 0.35rem;
 }
 
 .res-col-sub {
   font-family: 'Inter', sans-serif;
   font-size: 0.9375rem;
-  color: #888;
+  color: #666;
 }
 
 /* ─── No data ────────────────────────────────────────────── */
 .res-no-data {
   background: #FFFFFF;
-  border: 1px solid #E0E0E0;
-  border-radius: 12px;
+  border: 1px solid rgba(26,26,26,0.08);
+  border-radius: 16px;
   padding: 3rem 2rem;
   text-align: center;
+  box-shadow: 0 10px 28px rgba(0,0,0,0.06);
 }
 
 .res-no-data-icon {
@@ -229,7 +241,7 @@
   color: #FFFFFF;
   border: none;
   padding: 0.75rem 1.5rem;
-  border-radius: 8px;
+  border-radius: 999px;
   font-family: 'Inter', sans-serif;
   font-weight: 600;
   cursor: pointer;
@@ -244,10 +256,11 @@
 /* ─── Place Info Card ────────────────────────────────────── */
 .res-place-info {
   background: #FFFFFF;
-  border: 1px solid #E0E0E0;
-  border-radius: 10px;
+  border: 1px solid rgba(26,26,26,0.08);
+  border-radius: 16px;
   padding: 1.25rem;
   margin-top: 1.5rem;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.05);
 }
 
 .res-info-row {
@@ -331,15 +344,15 @@
 /* ─── Package Card ───────────────────────────────────────── */
 .res-pkg-card {
   background: #FFFFFF;
-  border: 1px solid #E0E0E0;
-  border-radius: 12px;
+  border: 1px solid rgba(26,26,26,0.08);
+  border-radius: 16px;
   padding: 1.25rem;
   transition: all 0.2s ease;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.05);
 }
 
 .res-pkg-card:hover {
-  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.08);
   transform: translateY(-2px);
 }
 
@@ -441,7 +454,7 @@
   background: #FF3B1F;
   color: #FFFFFF;
   border: none;
-  border-radius: 8px;
+  border-radius: 999px;
   font-family: 'Inter', sans-serif;
   font-weight: 600;
   font-size: 0.9375rem;

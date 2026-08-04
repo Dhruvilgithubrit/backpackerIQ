@@ -26,6 +26,7 @@ Generate a highly-structured, practical day-by-day itinerary for backpackers.
 
 CRITICAL FORMATTING RULES:
 You MUST return your response as a valid JSON object. Do NOT include any markdown formatting around the JSON (like \`\`\`json). Just the raw JSON object.
+Include the summary only once. Do not repeat estimated budget labels, total cost lines, or budget breakdown text inside the day entries.
 
 The JSON MUST match this exact schema:
 {
@@ -49,14 +50,14 @@ The JSON MUST match this exact schema:
   ]
 }
 
-Provide realistic latitude and longitude for the locations (at least one main location per day).`;
+Provide realistic latitude and longitude for the locations (at least one main location per day). Keep the summary concise and singular.`;
 
   const userPrompt = `Generate a ${travelers}-traveler ${days}-day itinerary for ${destination} 
 with a budget of ${budget}. Interests: ${Array.isArray(interests) ? interests.join(', ') : interests}. 
 Make it highly practical with actual place names, exact transport methods, and realistic costs. Output valid JSON.`;
 
   try {
-    const chatCompletion = await groq.chat.completions.create({
+    const groqCall = groq.chat.completions.create({
       messages: [
         { role: 'system', content: systemPrompt },
         { role: 'user', content: userPrompt }
@@ -64,6 +65,13 @@ Make it highly practical with actual place names, exact transport methods, and r
       model: 'llama-3.3-70b-versatile',
       response_format: { type: 'json_object' }
     });
+
+    // 55-second server-side timeout (client has 60s)
+    const timeoutPromise = new Promise((_, reject) =>
+      setTimeout(() => reject(new Error('GROQ_TIMEOUT')), 55000)
+    );
+
+    const chatCompletion = await Promise.race([groqCall, timeoutPromise]);
 
     let aiResponse = chatCompletion.choices[0]?.message?.content || '{}';
     let itineraryJson;
@@ -85,6 +93,13 @@ Make it highly practical with actual place names, exact transport methods, and r
 
   } catch (error) {
     console.error('Error calling Groq:', error);
+
+    if (error?.message === 'GROQ_TIMEOUT') {
+      return res.status(504).json({
+        success: false,
+        error: 'AI took too long to respond. Try fewer days or a simpler destination.'
+      });
+    }
     
     // Check for rate limiting
     if (error?.status === 429) {

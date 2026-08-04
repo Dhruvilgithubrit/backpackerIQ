@@ -26,7 +26,17 @@ export default function BudgetTracker({ budget, days }) {
     return { accom, food, activities, transport, contingency, total, budgetMax }
   }, [budget, days])
 
-  if (!breakdown) return null
+  if (!breakdown) return (
+    <div className="bt-root bt-placeholder fade-in">
+      <div className="bt-header">
+        <span className="bt-icon">💰</span>
+        <div className="bt-headline">
+          <h3 className="bt-title">Budget Summary</h3>
+          <p className="bt-subtitle">Select a budget above to see your breakdown</p>
+        </div>
+      </div>
+    </div>
+  )
 
   const { accom, food, activities, transport, contingency, total, budgetMax } = breakdown
   const overBudget = total > budgetMax
@@ -45,7 +55,10 @@ export default function BudgetTracker({ budget, days }) {
     <div className="bt-root fade-in">
       <div className="bt-header">
         <span className="bt-icon">💰</span>
-        <h3 className="bt-title">Estimated Budget</h3>
+        <div className="bt-headline">
+          <h3 className="bt-title">Budget Summary</h3>
+          <p className="bt-subtitle">A quick breakdown for {days} {days === 1 ? 'day' : 'days'}</p>
+        </div>
         <span className="bt-days">{days} days</span>
       </div>
 

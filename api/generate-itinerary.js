@@ -21,6 +21,7 @@ Generate a highly-structured, practical day-by-day itinerary for backpackers.
 
 CRITICAL FORMATTING RULES:
 You MUST follow this exact structure, with these exact headings. Do not deviate.
+Only include the budget summary once. Do not repeat budget totals, estimated budget labels, or TOTAL ESTIMATE wording in the itinerary days.
 
 ### How to Reach
 Provide clear, budget-friendly options to reach the destination by Train, Bus, and Flight. Include estimated costs.
@@ -39,6 +40,8 @@ DAY 2: [Title of Day]
 ### Summary
 - **Total Estimated Cost**: [Amount]
 - **Budget Breakdown**: [Short breakdown]
+
+Keep the summary compact and singular. Do not duplicate the summary in any other section.
 
 ### 5 Travel Tips
 1. [Tip]

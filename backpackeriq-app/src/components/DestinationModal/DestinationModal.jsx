@@ -37,7 +37,7 @@ export default function DestinationModal({ destination, onClose }) {
 
   function handlePlanTrip() {
     onClose()
-    navigate(`/plan?dest=${encodeURIComponent(name)}`)
+    navigate(`/plan?dest=${encodeURIComponent(id)}`)
   }
 
   return (
